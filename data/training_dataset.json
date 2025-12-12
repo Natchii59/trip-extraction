@@ -1,818 +1,818 @@
 [
     {
-        "text": "Je veux aller de ** Paris ** à Lyon",
+        "text": "Je veux aller de [LOC] Paris [/LOC] à Lyon",
         "label": 0
     },
     {
-        "text": "Je veux aller de Paris à ** Lyon **",
+        "text": "Je veux aller de Paris à [LOC] Lyon [/LOC]",
         "label": 1
     },
     {
-        "text": "Train de ** Marseille ** vers Nice",
+        "text": "Train de [LOC] Marseille [/LOC] vers Nice",
         "label": 0
     },
     {
-        "text": "Train de Marseille vers ** Nice **",
+        "text": "Train de Marseille vers [LOC] Nice [/LOC]",
         "label": 1
     },
     {
-        "text": "Vol depuis ** Toulouse ** jusqu'à Bordeaux",
+        "text": "Vol depuis [LOC] Toulouse [/LOC] jusqu'à Bordeaux",
         "label": 0
     },
     {
-        "text": "Vol depuis Toulouse jusqu'à ** Bordeaux **",
+        "text": "Vol depuis Toulouse jusqu'à [LOC] Bordeaux [/LOC]",
         "label": 1
     },
     {
-        "text": "Je pars de ** Lille ** pour aller à Strasbourg",
+        "text": "Je pars de [LOC] Lille [/LOC] pour aller à Strasbourg",
         "label": 0
     },
     {
-        "text": "Je pars de Lille pour aller à ** Strasbourg **",
+        "text": "Je pars de Lille pour aller à [LOC] Strasbourg [/LOC]",
         "label": 1
     },
     {
-        "text": "Trajet ** Nantes ** Rennes",
+        "text": "Trajet [LOC] Nantes [/LOC] Rennes",
         "label": 0
     },
     {
-        "text": "Trajet Nantes ** Rennes **",
+        "text": "Trajet Nantes [LOC] Rennes [/LOC]",
         "label": 1
     },
     {
-        "text": "De ** Montpellier ** à Perpignan",
+        "text": "De [LOC] Montpellier [/LOC] à Perpignan",
         "label": 0
     },
     {
-        "text": "De Montpellier à ** Perpignan **",
+        "text": "De Montpellier à [LOC] Perpignan [/LOC]",
         "label": 1
     },
     {
-        "text": "Départ ** Grenoble ** arrivée Annecy",
+        "text": "Départ [LOC] Grenoble [/LOC] arrivée Annecy",
         "label": 0
     },
     {
-        "text": "Départ Grenoble arrivée ** Annecy **",
+        "text": "Départ Grenoble arrivée [LOC] Annecy [/LOC]",
         "label": 1
     },
     {
-        "text": "Voyage ** Paris ** Marseille",
+        "text": "Voyage [LOC] Paris [/LOC] Marseille",
         "label": 0
     },
     {
-        "text": "Voyage Paris ** Marseille **",
+        "text": "Voyage Paris [LOC] Marseille [/LOC]",
         "label": 1
     },
     {
-        "text": "Je dois aller à Dijon depuis ** Lyon **",
+        "text": "Je dois aller à Dijon depuis [LOC] Lyon [/LOC]",
         "label": 0
     },
     {
-        "text": "Je dois aller à ** Dijon ** depuis Lyon",
+        "text": "Je dois aller à [LOC] Dijon [/LOC] depuis Lyon",
         "label": 1
     },
     {
-        "text": "Trajet depuis ** Reims ** vers Metz",
+        "text": "Trajet depuis [LOC] Reims [/LOC] vers Metz",
         "label": 0
     },
     {
-        "text": "Trajet depuis Reims vers ** Metz **",
+        "text": "Trajet depuis Reims vers [LOC] Metz [/LOC]",
         "label": 1
     },
     {
-        "text": "Billet de train de ** Tours ** à Poitiers",
+        "text": "Billet de train de [LOC] Tours [/LOC] à Poitiers",
         "label": 0
     },
     {
-        "text": "Billet de train de Tours à ** Poitiers **",
+        "text": "Billet de train de Tours à [LOC] Poitiers [/LOC]",
         "label": 1
     },
     {
-        "text": "Avion ** Ajaccio ** Bastia",
+        "text": "Avion [LOC] Ajaccio [/LOC] Bastia",
         "label": 0
     },
     {
-        "text": "Avion Ajaccio ** Bastia **",
+        "text": "Avion Ajaccio [LOC] Bastia [/LOC]",
         "label": 1
     },
     {
-        "text": "Je vais à Clermont-Ferrand en partant de ** Limoges **",
+        "text": "Je vais à Clermont-Ferrand en partant de [LOC] Limoges [/LOC]",
         "label": 0
     },
     {
-        "text": "Je vais à ** Clermont-Ferrand ** en partant de Limoges",
+        "text": "Je vais à [LOC] Clermont-Ferrand [/LOC] en partant de Limoges",
         "label": 1
     },
     {
-        "text": "Aller de ** Caen ** vers Le Havre",
+        "text": "Aller de [LOC] Caen [/LOC] vers Le Havre",
         "label": 0
     },
     {
-        "text": "Aller de Caen vers ** Le Havre **",
+        "text": "Aller de Caen vers [LOC] Le Havre [/LOC]",
         "label": 1
     },
     {
-        "text": "Trajet ** Brest ** Quimper",
+        "text": "Trajet [LOC] Brest [/LOC] Quimper",
         "label": 0
     },
     {
-        "text": "Trajet Brest ** Quimper **",
+        "text": "Trajet Brest [LOC] Quimper [/LOC]",
         "label": 1
     },
     {
-        "text": "Je cherche un train ** Nice ** vers Cannes",
+        "text": "Je cherche un train [LOC] Nice [/LOC] vers Cannes",
         "label": 0
     },
     {
-        "text": "Je cherche un train Nice vers ** Cannes **",
+        "text": "Je cherche un train Nice vers [LOC] Cannes [/LOC]",
         "label": 1
     },
     {
-        "text": "De ** Amiens ** jusqu'à Rouen",
+        "text": "De [LOC] Amiens [/LOC] jusqu'à Rouen",
         "label": 0
     },
     {
-        "text": "De Amiens jusqu'à ** Rouen **",
+        "text": "De Amiens jusqu'à [LOC] Rouen [/LOC]",
         "label": 1
     },
     {
-        "text": "Vol de ** Pau ** à Tarbes",
+        "text": "Vol de [LOC] Pau [/LOC] à Tarbes",
         "label": 0
     },
     {
-        "text": "Vol de Pau à ** Tarbes **",
+        "text": "Vol de Pau à [LOC] Tarbes [/LOC]",
         "label": 1
     },
     {
-        "text": "Je pars d'** Orléans ** pour Chartres",
+        "text": "Je pars d'[LOC] Orléans [/LOC] pour Chartres",
         "label": 0
     },
     {
-        "text": "Je pars d'Orléans pour ** Chartres **",
+        "text": "Je pars d'Orléans pour [LOC] Chartres [/LOC]",
         "label": 1
     },
     {
-        "text": "Voyage depuis ** Avignon ** vers Arles",
+        "text": "Voyage depuis [LOC] Avignon [/LOC] vers Arles",
         "label": 0
     },
     {
-        "text": "Voyage depuis Avignon vers ** Arles **",
+        "text": "Voyage depuis Avignon vers [LOC] Arles [/LOC]",
         "label": 1
     },
     {
-        "text": "** Paris ** Lyon en TGV",
+        "text": "[LOC] Paris [/LOC] Lyon en TGV",
         "label": 0
     },
     {
-        "text": "Paris ** Lyon ** en TGV",
+        "text": "Paris [LOC] Lyon [/LOC] en TGV",
         "label": 1
     },
     {
-        "text": "TER de ** Nancy ** à Épinal",
+        "text": "TER de [LOC] Nancy [/LOC] à Épinal",
         "label": 0
     },
     {
-        "text": "TER de Nancy à ** Épinal **",
+        "text": "TER de Nancy à [LOC] Épinal [/LOC]",
         "label": 1
     },
     {
-        "text": "Depuis ** Mulhouse ** vers Colmar",
+        "text": "Depuis [LOC] Mulhouse [/LOC] vers Colmar",
         "label": 0
     },
     {
-        "text": "Depuis Mulhouse vers ** Colmar **",
+        "text": "Depuis Mulhouse vers [LOC] Colmar [/LOC]",
         "label": 1
     },
     {
-        "text": "Je veux rejoindre Toulon depuis ** Marseille **",
+        "text": "Je veux rejoindre Toulon depuis [LOC] Marseille [/LOC]",
         "label": 0
     },
     {
-        "text": "Je veux rejoindre ** Toulon ** depuis Marseille",
+        "text": "Je veux rejoindre [LOC] Toulon [/LOC] depuis Marseille",
         "label": 1
     },
     {
-        "text": "Trajet ** La Rochelle ** vers Angoulême",
+        "text": "Trajet [LOC] La Rochelle [/LOC] vers Angoulême",
         "label": 0
     },
     {
-        "text": "Trajet La Rochelle vers ** Angoulême **",
+        "text": "Trajet La Rochelle vers [LOC] Angoulême [/LOC]",
         "label": 1
     },
     {
-        "text": "Train en direction de Valence au départ de ** Lyon **",
+        "text": "Train en direction de Valence au départ de [LOC] Lyon [/LOC]",
         "label": 0
     },
     {
-        "text": "Train en direction de ** Valence ** au départ de Lyon",
+        "text": "Train en direction de [LOC] Valence [/LOC] au départ de Lyon",
         "label": 1
     },
     {
-        "text": "Je dois me rendre à Angers depuis ** Nantes **",
+        "text": "Je dois me rendre à Angers depuis [LOC] Nantes [/LOC]",
         "label": 0
     },
     {
-        "text": "Je dois me rendre à ** Angers ** depuis Nantes",
+        "text": "Je dois me rendre à [LOC] Angers [/LOC] depuis Nantes",
         "label": 1
     },
     {
-        "text": "Déplacement de ** Chambéry ** vers Albertville",
+        "text": "Déplacement de [LOC] Chambéry [/LOC] vers Albertville",
         "label": 0
     },
     {
-        "text": "Déplacement de Chambéry vers ** Albertville **",
+        "text": "Déplacement de Chambéry vers [LOC] Albertville [/LOC]",
         "label": 1
     },
     {
-        "text": "Bus ** Besançon ** Belfort",
+        "text": "Bus [LOC] Besançon [/LOC] Belfort",
         "label": 0
     },
     {
-        "text": "Bus Besançon ** Belfort **",
+        "text": "Bus Besançon [LOC] Belfort [/LOC]",
         "label": 1
     },
     {
-        "text": "Je recherche un trajet depuis ** Calais ** jusqu'à Dunkerque",
+        "text": "Je recherche un trajet depuis [LOC] Calais [/LOC] jusqu'à Dunkerque",
         "label": 0
     },
     {
-        "text": "Je recherche un trajet depuis Calais jusqu'à ** Dunkerque **",
+        "text": "Je recherche un trajet depuis Calais jusqu'à [LOC] Dunkerque [/LOC]",
         "label": 1
     },
     {
-        "text": "De ** Troyes ** à Auxerre",
+        "text": "De [LOC] Troyes [/LOC] à Auxerre",
         "label": 0
     },
     {
-        "text": "De Troyes à ** Auxerre **",
+        "text": "De Troyes à [LOC] Auxerre [/LOC]",
         "label": 1
     },
     {
-        "text": "Voyage ** Laval ** vers Le Mans",
+        "text": "Voyage [LOC] Laval [/LOC] vers Le Mans",
         "label": 0
     },
     {
-        "text": "Voyage Laval vers ** Le Mans **",
+        "text": "Voyage Laval vers [LOC] Le Mans [/LOC]",
         "label": 1
     },
     {
-        "text": "Je vais de ** Blois ** à Bourges",
+        "text": "Je vais de [LOC] Blois [/LOC] à Bourges",
         "label": 0
     },
     {
-        "text": "Je vais de Blois à ** Bourges **",
+        "text": "Je vais de Blois à [LOC] Bourges [/LOC]",
         "label": 1
     },
     {
-        "text": "Trajet depuis ** Périgueux ** jusqu'à Agen",
+        "text": "Trajet depuis [LOC] Périgueux [/LOC] jusqu'à Agen",
         "label": 0
     },
     {
-        "text": "Trajet depuis Périgueux jusqu'à ** Agen **",
+        "text": "Trajet depuis Périgueux jusqu'à [LOC] Agen [/LOC]",
         "label": 1
     },
     {
-        "text": "Billet de ** Bayonne ** vers Biarritz",
+        "text": "Billet de [LOC] Bayonne [/LOC] vers Biarritz",
         "label": 0
     },
     {
-        "text": "Billet de Bayonne vers ** Biarritz **",
+        "text": "Billet de Bayonne vers [LOC] Biarritz [/LOC]",
         "label": 1
     },
     {
-        "text": "Direction Lorient au départ de ** Vannes **",
+        "text": "Direction Lorient au départ de [LOC] Vannes [/LOC]",
         "label": 0
     },
     {
-        "text": "Direction ** Lorient ** au départ de Vannes",
+        "text": "Direction [LOC] Lorient [/LOC] au départ de Vannes",
         "label": 1
     },
     {
-        "text": "Train ** Nice ** Monaco",
+        "text": "Train [LOC] Nice [/LOC] Monaco",
         "label": 0
     },
     {
-        "text": "Train Nice ** Monaco **",
+        "text": "Train Nice [LOC] Monaco [/LOC]",
         "label": 1
     },
     {
-        "text": "Je pars de ** Metz ** en direction de Thionville",
+        "text": "Je pars de [LOC] Metz [/LOC] en direction de Thionville",
         "label": 0
     },
     {
-        "text": "Je pars de Metz en direction de ** Thionville **",
+        "text": "Je pars de Metz en direction de [LOC] Thionville [/LOC]",
         "label": 1
     },
     {
-        "text": "Aller vers Saint-Étienne depuis ** Lyon **",
+        "text": "Aller vers Saint-Étienne depuis [LOC] Lyon [/LOC]",
         "label": 0
     },
     {
-        "text": "Aller vers ** Saint-Étienne ** depuis Lyon",
+        "text": "Aller vers [LOC] Saint-Étienne [/LOC] depuis Lyon",
         "label": 1
     },
     {
-        "text": "Voyage depuis ** Toulon ** pour aller à Hyères",
+        "text": "Voyage depuis [LOC] Toulon [/LOC] pour aller à Hyères",
         "label": 0
     },
     {
-        "text": "Voyage depuis Toulon pour aller à ** Hyères **",
+        "text": "Voyage depuis Toulon pour aller à [LOC] Hyères [/LOC]",
         "label": 1
     },
     {
-        "text": "De ** Lens ** vers Arras",
+        "text": "De [LOC] Lens [/LOC] vers Arras",
         "label": 0
     },
     {
-        "text": "De Lens vers ** Arras **",
+        "text": "De Lens vers [LOC] Arras [/LOC]",
         "label": 1
     },
     {
-        "text": "Je me rends à Béthune depuis ** Lille **",
+        "text": "Je me rends à Béthune depuis [LOC] Lille [/LOC]",
         "label": 0
     },
     {
-        "text": "Je me rends à ** Béthune ** depuis Lille",
+        "text": "Je me rends à [LOC] Béthune [/LOC] depuis Lille",
         "label": 1
     },
     {
-        "text": "Train de ** Montauban ** vers Cahors",
+        "text": "Train de [LOC] Montauban [/LOC] vers Cahors",
         "label": 0
     },
     {
-        "text": "Train de Montauban vers ** Cahors **",
+        "text": "Train de Montauban vers [LOC] Cahors [/LOC]",
         "label": 1
     },
     {
-        "text": "Trajet ** Nîmes ** Alès",
+        "text": "Trajet [LOC] Nîmes [/LOC] Alès",
         "label": 0
     },
     {
-        "text": "Trajet Nîmes ** Alès **",
+        "text": "Trajet Nîmes [LOC] Alès [/LOC]",
         "label": 1
     },
     {
-        "text": "Vol depuis ** Rodez ** jusqu'à Aurillac",
+        "text": "Vol depuis [LOC] Rodez [/LOC] jusqu'à Aurillac",
         "label": 0
     },
     {
-        "text": "Vol depuis Rodez jusqu'à ** Aurillac **",
+        "text": "Vol depuis Rodez jusqu'à [LOC] Aurillac [/LOC]",
         "label": 1
     },
     {
-        "text": "Je cherche un trajet ** Annecy ** Chamonix",
+        "text": "Je cherche un trajet [LOC] Annecy [/LOC] Chamonix",
         "label": 0
     },
     {
-        "text": "Je cherche un trajet Annecy ** Chamonix **",
+        "text": "Je cherche un trajet Annecy [LOC] Chamonix [/LOC]",
         "label": 1
     },
     {
-        "text": "De ** Saint-Nazaire ** à La Baule",
+        "text": "De [LOC] Saint-Nazaire [/LOC] à La Baule",
         "label": 0
     },
     {
-        "text": "De Saint-Nazaire à ** La Baule **",
+        "text": "De Saint-Nazaire à [LOC] La Baule [/LOC]",
         "label": 1
     },
     {
-        "text": "Voyage depuis ** Carcassonne ** vers Narbonne",
+        "text": "Voyage depuis [LOC] Carcassonne [/LOC] vers Narbonne",
         "label": 0
     },
     {
-        "text": "Voyage depuis Carcassonne vers ** Narbonne **",
+        "text": "Voyage depuis Carcassonne vers [LOC] Narbonne [/LOC]",
         "label": 1
     },
     {
-        "text": "Je vais à Nevers en partant de ** Bourges **",
+        "text": "Je vais à Nevers en partant de [LOC] Bourges [/LOC]",
         "label": 0
     },
     {
-        "text": "Je vais à ** Nevers ** en partant de Bourges",
+        "text": "Je vais à [LOC] Nevers [/LOC] en partant de Bourges",
         "label": 1
     },
     {
-        "text": "Départ de ** Charleville-Mézières ** arrivée Sedan",
+        "text": "Départ de [LOC] Charleville-Mézières [/LOC] arrivée Sedan",
         "label": 0
     },
     {
-        "text": "Départ de Charleville-Mézières arrivée ** Sedan **",
+        "text": "Départ de Charleville-Mézières arrivée [LOC] Sedan [/LOC]",
         "label": 1
     },
     {
-        "text": "Je voudrais un billet pour aller à Marseille en partant de ** Paris ** demain matin",
+        "text": "Je voudrais un billet pour aller à Marseille en partant de [LOC] Paris [/LOC] demain matin",
         "label": 0
     },
     {
-        "text": "Je voudrais un billet pour aller à ** Marseille ** en partant de Paris demain matin",
+        "text": "Je voudrais un billet pour aller à [LOC] Marseille [/LOC] en partant de Paris demain matin",
         "label": 1
     },
     {
-        "text": "Est-ce qu'il y a un train direct de ** Lyon ** vers Genève ou faut-il changer",
+        "text": "Est-ce qu'il y a un train direct de [LOC] Lyon [/LOC] vers Genève ou faut-il changer",
         "label": 0
     },
     {
-        "text": "Est-ce qu'il y a un train direct de Lyon vers ** Genève ** ou faut-il changer",
+        "text": "Est-ce qu'il y a un train direct de Lyon vers [LOC] Genève [/LOC] ou faut-il changer",
         "label": 1
     },
     {
-        "text": "Mon vol part de ** Nice ** et arrive à Paris avec une escale à Lyon",
+        "text": "Mon vol part de [LOC] Nice [/LOC] et arrive à Paris avec une escale à Lyon",
         "label": 0
     },
     {
-        "text": "Mon vol part de Nice et arrive à ** Paris ** avec une escale à Lyon",
+        "text": "Mon vol part de Nice et arrive à [LOC] Paris [/LOC] avec une escale à Lyon",
         "label": 1
     },
     {
-        "text": "Je cherche le trajet le plus rapide depuis ** Bordeaux ** pour rejoindre Toulouse",
+        "text": "Je cherche le trajet le plus rapide depuis [LOC] Bordeaux [/LOC] pour rejoindre Toulouse",
         "label": 0
     },
     {
-        "text": "Je cherche le trajet le plus rapide depuis Bordeaux pour rejoindre ** Toulouse **",
+        "text": "Je cherche le trajet le plus rapide depuis Bordeaux pour rejoindre [LOC] Toulouse [/LOC]",
         "label": 1
     },
     {
-        "text": "Combien coûte un billet ** Paris ** Bruxelles en seconde classe",
+        "text": "Combien coûte un billet [LOC] Paris [/LOC] Bruxelles en seconde classe",
         "label": 0
     },
     {
-        "text": "Combien coûte un billet Paris ** Bruxelles ** en seconde classe",
+        "text": "Combien coûte un billet Paris [LOC] Bruxelles [/LOC] en seconde classe",
         "label": 1
     },
     {
-        "text": "Le TGV qui part de ** Marseille ** et qui va à Lille passe par Lyon",
+        "text": "Le TGV qui part de [LOC] Marseille [/LOC] et qui va à Lille passe par Lyon",
         "label": 0
     },
     {
-        "text": "Le TGV qui part de Marseille et qui va à ** Lille ** passe par Lyon",
+        "text": "Le TGV qui part de Marseille et qui va à [LOC] Lille [/LOC] passe par Lyon",
         "label": 1
     },
     {
-        "text": "J'ai besoin d'un trajet ** Strasbourg ** Luxembourg pour vendredi prochain",
+        "text": "J'ai besoin d'un trajet [LOC] Strasbourg [/LOC] Luxembourg pour vendredi prochain",
         "label": 0
     },
     {
-        "text": "J'ai besoin d'un trajet Strasbourg ** Luxembourg ** pour vendredi prochain",
+        "text": "J'ai besoin d'un trajet Strasbourg [LOC] Luxembourg [/LOC] pour vendredi prochain",
         "label": 1
     },
     {
-        "text": "Quels sont les horaires des trains de ** Nantes ** pour aller à Rennes",
+        "text": "Quels sont les horaires des trains de [LOC] Nantes [/LOC] pour aller à Rennes",
         "label": 0
     },
     {
-        "text": "Quels sont les horaires des trains de Nantes pour aller à ** Rennes **",
+        "text": "Quels sont les horaires des trains de Nantes pour aller à [LOC] Rennes [/LOC]",
         "label": 1
     },
     {
-        "text": "Je souhaite partir de ** Montpellier ** demain et arriver à Toulouse le soir",
+        "text": "Je souhaite partir de [LOC] Montpellier [/LOC] demain et arriver à Toulouse le soir",
         "label": 0
     },
     {
-        "text": "Je souhaite partir de Montpellier demain et arriver à ** Toulouse ** le soir",
+        "text": "Je souhaite partir de Montpellier demain et arriver à [LOC] Toulouse [/LOC] le soir",
         "label": 1
     },
     {
-        "text": "Y a-t-il un bus direct entre ** Grenoble ** et Chambéry",
+        "text": "Y a-t-il un bus direct entre [LOC] Grenoble [/LOC] et Chambéry",
         "label": 0
     },
     {
-        "text": "Y a-t-il un bus direct entre Grenoble et ** Chambéry **",
+        "text": "Y a-t-il un bus direct entre Grenoble et [LOC] Chambéry [/LOC]",
         "label": 1
     },
     {
-        "text": "Je dois aller voir ma famille à Rouen depuis ** Paris ** ce weekend",
+        "text": "Je dois aller voir ma famille à Rouen depuis [LOC] Paris [/LOC] ce weekend",
         "label": 0
     },
     {
-        "text": "Je dois aller voir ma famille à ** Rouen ** depuis Paris ce weekend",
+        "text": "Je dois aller voir ma famille à [LOC] Rouen [/LOC] depuis Paris ce weekend",
         "label": 1
     },
     {
-        "text": "Le meilleur moyen d'aller de ** Dijon ** à Besançon",
+        "text": "Le meilleur moyen d'aller de [LOC] Dijon [/LOC] à Besançon",
         "label": 0
     },
     {
-        "text": "Le meilleur moyen d'aller de Dijon à ** Besançon **",
+        "text": "Le meilleur moyen d'aller de Dijon à [LOC] Besançon [/LOC]",
         "label": 1
     },
     {
-        "text": "Réservation d'un trajet ** Avignon ** Nice pour deux personnes",
+        "text": "Réservation d'un trajet [LOC] Avignon [/LOC] Nice pour deux personnes",
         "label": 0
     },
     {
-        "text": "Réservation d'un trajet Avignon ** Nice ** pour deux personnes",
+        "text": "Réservation d'un trajet Avignon [LOC] Nice [/LOC] pour deux personnes",
         "label": 1
     },
     {
-        "text": "Comment se rendre à Brest en partant de ** Rennes **",
+        "text": "Comment se rendre à Brest en partant de [LOC] Rennes [/LOC]",
         "label": 0
     },
     {
-        "text": "Comment se rendre à ** Brest ** en partant de Rennes",
+        "text": "Comment se rendre à [LOC] Brest [/LOC] en partant de Rennes",
         "label": 1
     },
     {
-        "text": "Trajet avec correspondance de ** Pau ** vers Bayonne puis Biarritz",
+        "text": "Trajet avec correspondance de [LOC] Pau [/LOC] vers Bayonne puis Biarritz",
         "label": 0
     },
     {
-        "text": "Trajet avec correspondance de Pau vers Bayonne puis ** Biarritz **",
+        "text": "Trajet avec correspondance de Pau vers Bayonne puis [LOC] Biarritz [/LOC]",
         "label": 1
     },
     {
-        "text": "Je viens de ** Toulon ** et je veux aller à Marseille pour prendre mon avion",
+        "text": "Je viens de [LOC] Toulon [/LOC] et je veux aller à Marseille pour prendre mon avion",
         "label": 0
     },
     {
-        "text": "Je viens de Toulon et je veux aller à ** Marseille ** pour prendre mon avion",
+        "text": "Je viens de Toulon et je veux aller à [LOC] Marseille [/LOC] pour prendre mon avion",
         "label": 1
     },
     {
-        "text": "Quel train prendre depuis ** Lille ** pour arriver à Bruxelles avant midi",
+        "text": "Quel train prendre depuis [LOC] Lille [/LOC] pour arriver à Bruxelles avant midi",
         "label": 0
     },
     {
-        "text": "Quel train prendre depuis Lille pour arriver à ** Bruxelles ** avant midi",
+        "text": "Quel train prendre depuis Lille pour arriver à [LOC] Bruxelles [/LOC] avant midi",
         "label": 1
     },
     {
-        "text": "Voyage d'affaires de ** Nancy ** à Paris avec retour le même jour",
+        "text": "Voyage d'affaires de [LOC] Nancy [/LOC] à Paris avec retour le même jour",
         "label": 0
     },
     {
-        "text": "Voyage d'affaires de Nancy à ** Paris ** avec retour le même jour",
+        "text": "Voyage d'affaires de Nancy à [LOC] Paris [/LOC] avec retour le même jour",
         "label": 1
     },
     {
-        "text": "Je vais à Lyon mais je pars de ** Marseille ** tôt le matin",
+        "text": "Je vais à Lyon mais je pars de [LOC] Marseille [/LOC] tôt le matin",
         "label": 0
     },
     {
-        "text": "Je vais à ** Lyon ** mais je pars de Marseille tôt le matin",
+        "text": "Je vais à [LOC] Lyon [/LOC] mais je pars de Marseille tôt le matin",
         "label": 1
     },
     {
-        "text": "Transport depuis l'aéroport de ** Toulouse ** vers le centre ville de Bordeaux",
+        "text": "Transport depuis l'aéroport de [LOC] Toulouse [/LOC] vers le centre ville de Bordeaux",
         "label": 0
     },
     {
-        "text": "Transport depuis l'aéroport de Toulouse vers le centre ville de ** Bordeaux **",
+        "text": "Transport depuis l'aéroport de Toulouse vers le centre ville de [LOC] Bordeaux [/LOC]",
         "label": 1
     },
     {
-        "text": "Je cherche à me rendre à Strasbourg au départ de ** Paris ** Gare de l'Est",
+        "text": "Je cherche à me rendre à Strasbourg au départ de [LOC] Paris [/LOC] Gare de l'Est",
         "label": 0
     },
     {
-        "text": "Je cherche à me rendre à ** Strasbourg ** au départ de Paris Gare de l'Est",
+        "text": "Je cherche à me rendre à [LOC] Strasbourg [/LOC] au départ de Paris Gare de l'Est",
         "label": 1
     },
     {
-        "text": "Train de nuit qui quitte ** Paris ** pour arriver à Nice au petit matin",
+        "text": "Train de nuit qui quitte [LOC] Paris [/LOC] pour arriver à Nice au petit matin",
         "label": 0
     },
     {
-        "text": "Train de nuit qui quitte Paris pour arriver à ** Nice ** au petit matin",
+        "text": "Train de nuit qui quitte Paris pour arriver à [LOC] Nice [/LOC] au petit matin",
         "label": 1
     },
     {
-        "text": "Aller simple ** Metz ** Thionville en soirée",
+        "text": "Aller simple [LOC] Metz [/LOC] Thionville en soirée",
         "label": 0
     },
     {
-        "text": "Aller simple Metz ** Thionville ** en soirée",
+        "text": "Aller simple Metz [LOC] Thionville [/LOC] en soirée",
         "label": 1
     },
     {
-        "text": "Je rentre à Toulouse après avoir quitté ** Paris **",
+        "text": "Je rentre à Toulouse après avoir quitté [LOC] Paris [/LOC]",
         "label": 0
     },
     {
-        "text": "Je rentre à ** Toulouse ** après avoir quitté Paris",
+        "text": "Je rentre à [LOC] Toulouse [/LOC] après avoir quitté Paris",
         "label": 1
     },
     {
-        "text": "Depuis ** Angers ** je dois rejoindre Le Mans rapidement",
+        "text": "Depuis [LOC] Angers [/LOC] je dois rejoindre Le Mans rapidement",
         "label": 0
     },
     {
-        "text": "Depuis Angers je dois rejoindre ** Le Mans ** rapidement",
+        "text": "Depuis Angers je dois rejoindre [LOC] Le Mans [/LOC] rapidement",
         "label": 1
     },
     {
-        "text": "Combien de temps faut-il pour aller de ** Reims ** à Charleville-Mézières",
+        "text": "Combien de temps faut-il pour aller de [LOC] Reims [/LOC] à Charleville-Mézières",
         "label": 0
     },
     {
-        "text": "Combien de temps faut-il pour aller de Reims à ** Charleville-Mézières **",
+        "text": "Combien de temps faut-il pour aller de Reims à [LOC] Charleville-Mézières [/LOC]",
         "label": 1
     },
     {
-        "text": "Je vais passer par Lyon mais ma destination finale est Marseille depuis ** Paris **",
+        "text": "Je vais passer par Lyon mais ma destination finale est Marseille depuis [LOC] Paris [/LOC]",
         "label": 0
     },
     {
-        "text": "Je vais passer par Lyon mais ma destination finale est ** Marseille ** depuis Paris",
+        "text": "Je vais passer par Lyon mais ma destination finale est [LOC] Marseille [/LOC] depuis Paris",
         "label": 1
     },
     {
-        "text": "Billets pour un groupe de ** Bordeaux ** direction La Rochelle",
+        "text": "Billets pour un groupe de [LOC] Bordeaux [/LOC] direction La Rochelle",
         "label": 0
     },
     {
-        "text": "Billets pour un groupe de Bordeaux direction ** La Rochelle **",
+        "text": "Billets pour un groupe de Bordeaux direction [LOC] La Rochelle [/LOC]",
         "label": 1
     },
     {
-        "text": "Mon départ est prévu à ** Nantes ** et mon arrivée à Angers",
+        "text": "Mon départ est prévu à [LOC] Nantes [/LOC] et mon arrivée à Angers",
         "label": 0
     },
     {
-        "text": "Mon départ est prévu à Nantes et mon arrivée à ** Angers **",
+        "text": "Mon départ est prévu à Nantes et mon arrivée à [LOC] Angers [/LOC]",
         "label": 1
     },
     {
-        "text": "Comment rejoindre Perpignan quand on est à ** Montpellier **",
+        "text": "Comment rejoindre Perpignan quand on est à [LOC] Montpellier [/LOC]",
         "label": 0
     },
     {
-        "text": "Comment rejoindre ** Perpignan ** quand on est à Montpellier",
+        "text": "Comment rejoindre [LOC] Perpignan [/LOC] quand on est à Montpellier",
         "label": 1
     },
     {
-        "text": "Je dois aller à Dijon depuis ** Lyon **",
+        "text": "Je dois aller à Dijon depuis [LOC] Lyon [/LOC]",
         "label": 0
     },
     {
-        "text": "Je dois aller à ** Dijon ** depuis Lyon",
+        "text": "Je dois aller à [LOC] Dijon [/LOC] depuis Lyon",
         "label": 1
     },
     {
-        "text": "Aller à Marseille depuis ** Paris **",
+        "text": "Aller à Marseille depuis [LOC] Paris [/LOC]",
         "label": 0
     },
     {
-        "text": "Aller à ** Marseille ** depuis Paris",
+        "text": "Aller à [LOC] Marseille [/LOC] depuis Paris",
         "label": 1
     },
     {
-        "text": "Je vais à Bordeaux depuis ** Toulouse **",
+        "text": "Je vais à Bordeaux depuis [LOC] Toulouse [/LOC]",
         "label": 0
     },
     {
-        "text": "Je vais à ** Bordeaux ** depuis Toulouse",
+        "text": "Je vais à [LOC] Bordeaux [/LOC] depuis Toulouse",
         "label": 1
     },
     {
-        "text": "Rejoindre Nice depuis ** Cannes **",
+        "text": "Rejoindre Nice depuis [LOC] Cannes [/LOC]",
         "label": 0
     },
     {
-        "text": "Rejoindre ** Nice ** depuis Cannes",
+        "text": "Rejoindre [LOC] Nice [/LOC] depuis Cannes",
         "label": 1
     },
     {
-        "text": "Aller à Strasbourg en partant de ** Nancy **",
+        "text": "Aller à Strasbourg en partant de [LOC] Nancy [/LOC]",
         "label": 0
     },
     {
-        "text": "Aller à ** Strasbourg ** en partant de Nancy",
+        "text": "Aller à [LOC] Strasbourg [/LOC] en partant de Nancy",
         "label": 1
     },
     {
-        "text": "Partir à Rennes depuis ** Nantes **",
+        "text": "Partir à Rennes depuis [LOC] Nantes [/LOC]",
         "label": 0
     },
     {
-        "text": "Partir à ** Rennes ** depuis Nantes",
+        "text": "Partir à [LOC] Rennes [/LOC] depuis Nantes",
         "label": 1
     },
     {
-        "text": "Me rendre à Lille depuis ** Paris **",
+        "text": "Me rendre à Lille depuis [LOC] Paris [/LOC]",
         "label": 0
     },
     {
-        "text": "Me rendre à ** Lille ** depuis Paris",
+        "text": "Me rendre à [LOC] Lille [/LOC] depuis Paris",
         "label": 1
     },
     {
-        "text": "Je veux aller à Montpellier depuis ** Lyon **",
+        "text": "Je veux aller à Montpellier depuis [LOC] Lyon [/LOC]",
         "label": 0
     },
     {
-        "text": "Je veux aller à ** Montpellier ** depuis Lyon",
+        "text": "Je veux aller à [LOC] Montpellier [/LOC] depuis Lyon",
         "label": 1
     },
     {
-        "text": "Besoin d'aller à Tours depuis ** Paris **",
+        "text": "Besoin d'aller à Tours depuis [LOC] Paris [/LOC]",
         "label": 0
     },
     {
-        "text": "Besoin d'aller à ** Tours ** depuis Paris",
+        "text": "Besoin d'aller à [LOC] Tours [/LOC] depuis Paris",
         "label": 1
     },
     {
-        "text": "Trajet ** Nantes ** Rennes",
+        "text": "Trajet [LOC] Nantes [/LOC] Rennes",
         "label": 0
     },
     {
-        "text": "Trajet Nantes ** Rennes **",
+        "text": "Trajet Nantes [LOC] Rennes [/LOC]",
         "label": 1
     },
     {
-        "text": "Voyage ** Paris ** Marseille",
+        "text": "Voyage [LOC] Paris [/LOC] Marseille",
         "label": 0
     },
     {
-        "text": "Voyage Paris ** Marseille **",
+        "text": "Voyage Paris [LOC] Marseille [/LOC]",
         "label": 1
     },
     {
-        "text": "Train ** Nice ** Monaco",
+        "text": "Train [LOC] Nice [/LOC] Monaco",
         "label": 0
     },
     {
-        "text": "Train Nice ** Monaco **",
+        "text": "Train Nice [LOC] Monaco [/LOC]",
         "label": 1
     },
     {
-        "text": "Bus ** Lyon ** Grenoble",
+        "text": "Bus [LOC] Lyon [/LOC] Grenoble",
         "label": 0
     },
     {
-        "text": "Bus Lyon ** Grenoble **",
+        "text": "Bus Lyon [LOC] Grenoble [/LOC]",
         "label": 1
     },
     {
-        "text": "Vol ** Toulouse ** Bordeaux",
+        "text": "Vol [LOC] Toulouse [/LOC] Bordeaux",
         "label": 0
     },
     {
-        "text": "Vol Toulouse ** Bordeaux **",
+        "text": "Vol Toulouse [LOC] Bordeaux [/LOC]",
         "label": 1
     },
     {
-        "text": "Trajet ** Lille ** Amiens",
+        "text": "Trajet [LOC] Lille [/LOC] Amiens",
         "label": 0
     },
     {
-        "text": "Trajet Lille ** Amiens **",
+        "text": "Trajet Lille [LOC] Amiens [/LOC]",
         "label": 1
     },
     {
-        "text": "Billet ** Strasbourg ** Colmar",
+        "text": "Billet [LOC] Strasbourg [/LOC] Colmar",
         "label": 0
     },
     {
-        "text": "Billet Strasbourg ** Colmar **",
+        "text": "Billet Strasbourg [LOC] Colmar [/LOC]",
         "label": 1
     },
     {
-        "text": "Navette ** Orly ** Roissy",
+        "text": "Navette [LOC] Orly [/LOC] Roissy",
         "label": 0
     },
     {
-        "text": "Navette Orly ** Roissy **",
+        "text": "Navette Orly [LOC] Roissy [/LOC]",
         "label": 1
     },
     {
-        "text": "Je dois aller à ** Nice ** depuis Paris",
+        "text": "Je dois aller à [LOC] Nice [/LOC] depuis Paris",
         "label": 1
     },
     {
-        "text": "Je dois aller à Nice depuis ** Paris **",
+        "text": "Je dois aller à Nice depuis [LOC] Paris [/LOC]",
         "label": 0
     },
     {
-        "text": "Il faut aller à ** Bordeaux ** depuis Toulouse",
+        "text": "Il faut aller à [LOC] Bordeaux [/LOC] depuis Toulouse",
         "label": 1
     },
     {
-        "text": "Il faut aller à Bordeaux depuis ** Toulouse **",
+        "text": "Il faut aller à Bordeaux depuis [LOC] Toulouse [/LOC]",
         "label": 0
     },
     {
-        "text": "Je vais aller à ** Strasbourg ** depuis Nancy",
+        "text": "Je vais aller à [LOC] Strasbourg [/LOC] depuis Nancy",
         "label": 1
     },
     {
-        "text": "Je vais aller à Strasbourg depuis ** Nancy **",
+        "text": "Je vais aller à Strasbourg depuis [LOC] Nancy [/LOC]",
         "label": 0
     },
     {
-        "text": "Aller à ** Rennes ** depuis Nantes",
+        "text": "Aller à [LOC] Rennes [/LOC] depuis Nantes",
         "label": 1
     },
     {
-        "text": "Aller à Rennes depuis ** Nantes **",
+        "text": "Aller à Rennes depuis [LOC] Nantes [/LOC]",
         "label": 0
     },
     {
-        "text": "Je cherche à aller à ** Cannes ** depuis Nice",
+        "text": "Je cherche à aller à [LOC] Cannes [/LOC] depuis Nice",
         "label": 1
     },
     {
-        "text": "Je cherche à aller à Cannes depuis ** Nice **",
+        "text": "Je cherche à aller à Cannes depuis [LOC] Nice [/LOC]",
         "label": 0
     }
 ]

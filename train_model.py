@@ -167,9 +167,19 @@ def train_model(config: TrainingConfig):
     # Load tokenizer and model
     logger.info(f"Loading model: {config.model_name}")
     tokenizer = CamembertTokenizer.from_pretrained(config.model_name)
+
+    # Add special tokens for location markers
+    special_tokens_dict = {"additional_special_tokens": ["[LOC]", "[/LOC]"]}
+    num_added_tokens = tokenizer.add_special_tokens(special_tokens_dict)
+    logger.info(f"Added {num_added_tokens} special tokens: [LOC], [/LOC]")
+
     model = CamembertForSequenceClassification.from_pretrained(
         config.model_name, num_labels=2  # departure (0) or arrival (1)
     )
+
+    # Resize model embeddings to accommodate new tokens
+    model.resize_token_embeddings(len(tokenizer))
+    logger.info(f"Resized model embeddings to {len(tokenizer)} tokens")
 
     # Create datasets
     train_dataset = TripDataset(train_texts, train_labels, tokenizer, config.max_length)

@@ -109,8 +109,8 @@ class DepartureArrivalClassifier:
             # Get actual location with correct casing from text
             loc_in_text = text[loc_pos : loc_pos + len(location)]
 
-            # Create input text with location marker (same format as training)
-            marked_text = text.replace(loc_in_text, f"** {loc_in_text} **", 1)
+            # Create input text with location marker using special tokens
+            marked_text = text.replace(loc_in_text, f"[LOC] {loc_in_text} [/LOC]", 1)
 
             # Tokenize with max_length matching training config
             inputs = self._tokenizer(
