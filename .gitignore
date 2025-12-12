@@ -89,10 +89,12 @@ data/processed/*
 !data/raw/.gitkeep
 !data/processed/.gitkeep
 
-# Model files
-models/*.bin
-models/*.pt
-models/*.pth
+# Model files (trained models should not be committed)
+models/
+!models/.gitkeep
+*.bin
+*.pt
+*.pth
 *.pkl
 *.pickle
 
