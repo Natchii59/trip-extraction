@@ -90,13 +90,17 @@ data/processed/*
 !data/processed/.gitkeep
 
 # Model files (trained models should not be committed)
-models/
+# Only ignore models at the root, not src/trip/models/
+/models/
 !models/.gitkeep
 *.bin
 *.pt
 *.pth
 *.pkl
 *.pickle
+
+# But keep the source code models package
+!src/trip/models/
 
 # Logs
 *.log

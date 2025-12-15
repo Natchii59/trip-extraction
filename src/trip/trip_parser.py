@@ -1,12 +1,19 @@
 """
 Trip Parser module for extracting departure and arrival information.
+
+This module provides the main interface for parsing travel information
+from French text using specialized ML models.
 """
 
 import logging
-from typing import Tuple, Optional, List
+from typing import Optional
 
-from .ner_extractor import NERExtractor
-from .departure_arrival_classifier import DepartureArrivalClassifier
+from .models import NERExtractor, DepartureArrivalClassifier
+from .exceptions import (
+    InvalidInputError,
+    InsufficientLocationsError,
+    ClassificationError,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +44,7 @@ class TripParser:
         self.ner_extractor = ner_extractor or NERExtractor()
         self.classifier = classifier or DepartureArrivalClassifier()
 
-    def parse_trip(self, text: str) -> Tuple[Optional[str], Optional[str]]:
+    def parse_trip(self, text: str) -> tuple[Optional[str], Optional[str]]:
         """
         Parse trip information from text to extract departure and arrival cities.
 
@@ -52,7 +59,10 @@ class TripParser:
 
         Returns:
             Tuple of (departure_city, arrival_city). Returns (None, None) if
-            not enough cities are detected.
+            not enough cities are detected or classification fails.
+
+        Raises:
+            InvalidInputError: If text is None or empty.
 
         Examples:
             >>> parser = TripParser()
@@ -61,9 +71,18 @@ class TripParser:
             >>> parser.parse_trip("Je veux aller à Lille depuis Paris")
             ('Paris', 'Lille')
         """
+        # Validate input
+        if not isinstance(text, str):
+            raise InvalidInputError("text", text, f"Expected str, got {type(text).__name__}")
+
         if not text or not text.strip():
-            logger.warning("Empty input text provided")
-            return (None, None)
+            raise InvalidInputError("text", text, "Text cannot be empty")
+
+        # Limit text length for performance
+        max_text_length = 1000
+        if len(text) > max_text_length:
+            logger.warning(f"Text too long ({len(text)} chars), truncating to {max_text_length}")
+            text = text[:max_text_length]
 
         try:
             # Step 1: Extract locations using NER
@@ -79,6 +98,13 @@ class TripParser:
             logger.debug(f"Parsed trip: {departure} → {arrival}")
             return (departure, arrival)
 
+        except (InsufficientLocationsError, ClassificationError) as e:
+            logger.warning(f"Cannot parse trip: {e}")
+            return (None, None)
+
+        except InvalidInputError:
+            raise
+
         except Exception as e:
-            logger.error(f"Error parsing trip: {e}")
+            logger.error(f"Unexpected error parsing trip: {e}", exc_info=True)
             return (None, None)

@@ -10,10 +10,16 @@ travel sentences.
 
 import json
 import logging
+import sys
 import torch
 from pathlib import Path
-from typing import List, Dict, Tuple
+from typing import Dict
 from dataclasses import dataclass
+
+# Add project root to path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 from transformers import (
     CamembertTokenizer,
     CamembertForSequenceClassification,
@@ -24,30 +30,13 @@ from torch.utils.data import Dataset
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-logging.basicConfig(level=logging.INFO)
+from src.trip.config import get_config
+from src.trip.exceptions import InvalidInputError
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class TrainingConfig:
-    """Configuration for model training."""
-
-    model_name: str = "camembert-base"
-    output_dir: str = "./models/departure_arrival_classifier"
-    dataset_path: str = "./data/training_dataset.json"
-    test_size: float = 0.2
-    random_state: int = 42
-
-    # Training hyperparameters
-    num_epochs: int = 10
-    batch_size: int = 8
-    learning_rate: float = 5e-5
-    weight_decay: float = 0.01
-    warmup_steps: int = 50
-    gradient_accumulation_steps: int = 4
-
-    # Model configuration
-    max_length: int = 128
 
 
 class TripDataset(Dataset):
@@ -60,8 +49,8 @@ class TripDataset(Dataset):
 
     def __init__(
         self,
-        texts: List[str],
-        labels: List[int],
+        texts: list[str],
+        labels: list[int],
         tokenizer: CamembertTokenizer,
         max_length: int = 128,
     ):
@@ -74,15 +63,32 @@ class TripDataset(Dataset):
             tokenizer: Tokenizer for encoding texts.
             max_length: Maximum sequence length.
         """
+        if len(texts) != len(labels):
+            raise InvalidInputError(
+                "texts/labels",
+                f"lengths {len(texts)}/{len(labels)}",
+                "Texts and labels must have the same length",
+            )
+
         self.texts = texts
         self.labels = labels
         self.tokenizer = tokenizer
         self.max_length = max_length
 
     def __len__(self) -> int:
+        """Get the number of examples in the dataset."""
         return len(self.texts)
 
     def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
+        """
+        Get a single training example.
+
+        Args:
+            idx: Index of the example.
+
+        Returns:
+            Dictionary with input_ids, attention_mask, and labels tensors.
+        """
         text = self.texts[idx]
         label = self.labels[idx]
 
@@ -101,15 +107,33 @@ class TripDataset(Dataset):
         }
 
 
-def load_dataset(dataset_path: str) -> List[Dict]:
-    """Load the training dataset from JSON file."""
+def load_dataset(dataset_path: Path) -> list[Dict]:
+    """
+    Load the training dataset from JSON file.
+
+    Args:
+        dataset_path: Path to the JSON dataset file.
+
+    Returns:
+        List of training examples.
+
+    Raises:
+        FileNotFoundError: If dataset file doesn't exist.
+        json.JSONDecodeError: If dataset file is not valid JSON.
+    """
+    if not dataset_path.exists():
+        raise FileNotFoundError(
+            f"Dataset not found at {dataset_path}. " f"Please ensure the training data exists."
+        )
+
     with open(dataset_path, "r", encoding="utf-8") as f:
         data = json.load(f)
+
     logger.info(f"Loaded {len(data)} examples from {dataset_path}")
     return data
 
 
-def create_training_examples(data: List[Dict]) -> Tuple[List[str], List[int]]:
+def create_training_examples(data: list[Dict]) -> tuple[list[str], list[int]]:
     """
     Load training examples directly from the dataset.
 
@@ -125,6 +149,10 @@ def create_training_examples(data: List[Dict]) -> Tuple[List[str], List[int]]:
     labels = []
 
     for example in data:
+        if "text" not in example or "label" not in example:
+            logger.warning(f"Skipping invalid example: {example}")
+            continue
+
         texts.append(example["text"])
         labels.append(example["label"])
 
@@ -133,48 +161,71 @@ def create_training_examples(data: List[Dict]) -> Tuple[List[str], List[int]]:
 
 
 def compute_metrics(eval_pred) -> Dict[str, float]:
-    """Compute accuracy for evaluation."""
+    """
+    Compute accuracy for evaluation.
+
+    Args:
+        eval_pred: Tuple of (predictions, labels) from the trainer.
+
+    Returns:
+        Dictionary with computed metrics.
+    """
     logits, labels = eval_pred
     predictions = np.argmax(logits, axis=-1)
     accuracy = (predictions == labels).mean()
     return {"accuracy": accuracy}
 
 
-def train_model(config: TrainingConfig):
+def train_model():
     """
     Train the departure-arrival classifier.
 
-    Args:
-        config: Training configuration.
+    Returns:
+        Tuple of (trainer, evaluation_results).
     """
     logger.info("Starting model training...")
-    logger.info(f"Configuration: {config}")
+
+    # Get configuration
+    config = get_config()
+    training_config = config.training
+
+    logger.info(f"Configuration:")
+    logger.info(f"  - Model: {config.model.classifier_base_model}")
+    logger.info(f"  - Epochs: {training_config.num_epochs}")
+    logger.info(f"  - Batch size: {training_config.batch_size}")
+    logger.info(f"  - Learning rate: {training_config.learning_rate}")
 
     # Load dataset
-    data = load_dataset(config.dataset_path)
+    dataset_path = config.paths.training_dataset
+    data = load_dataset(dataset_path)
 
-    # Load training examples (déjà formatés avec <LOC>)
+    # Load training examples (already formatted with [LOC])
     texts, labels = create_training_examples(data)
 
     # Split into train and validation sets
     train_texts, val_texts, train_labels, val_labels = train_test_split(
-        texts, labels, test_size=config.test_size, random_state=config.random_state, stratify=labels
+        texts,
+        labels,
+        test_size=training_config.test_size,
+        random_state=training_config.random_state,
+        stratify=labels,
     )
 
     logger.info(f"Train set: {len(train_texts)} examples")
     logger.info(f"Validation set: {len(val_texts)} examples")
 
     # Load tokenizer and model
-    logger.info(f"Loading model: {config.model_name}")
-    tokenizer = CamembertTokenizer.from_pretrained(config.model_name)
+    logger.info(f"Loading model: {config.model.classifier_base_model}")
+    tokenizer = CamembertTokenizer.from_pretrained(config.model.classifier_base_model)
 
     # Add special tokens for location markers
-    special_tokens_dict = {"additional_special_tokens": ["[LOC]", "[/LOC]"]}
+    special_tokens_dict = {"additional_special_tokens": training_config.special_tokens}
     num_added_tokens = tokenizer.add_special_tokens(special_tokens_dict)
-    logger.info(f"Added {num_added_tokens} special tokens: [LOC], [/LOC]")
+    logger.info(f"Added {num_added_tokens} special tokens: {training_config.special_tokens}")
 
     model = CamembertForSequenceClassification.from_pretrained(
-        config.model_name, num_labels=2  # departure (0) or arrival (1)
+        config.model.classifier_base_model,
+        num_labels=training_config.num_labels,  # departure (0) or arrival (1)
     )
 
     # Resize model embeddings to accommodate new tokens
@@ -182,19 +233,23 @@ def train_model(config: TrainingConfig):
     logger.info(f"Resized model embeddings to {len(tokenizer)} tokens")
 
     # Create datasets
-    train_dataset = TripDataset(train_texts, train_labels, tokenizer, config.max_length)
-    val_dataset = TripDataset(val_texts, val_labels, tokenizer, config.max_length)
+    train_dataset = TripDataset(train_texts, train_labels, tokenizer, training_config.max_length)
+    val_dataset = TripDataset(val_texts, val_labels, tokenizer, training_config.max_length)
 
-    # Define training arguments - Ultra rapide
+    # Ensure output directory exists
+    output_dir = config.paths.departure_arrival_model
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Define training arguments
     training_args = TrainingArguments(
-        output_dir=config.output_dir,
-        num_train_epochs=config.num_epochs,
-        per_device_train_batch_size=config.batch_size,
-        per_device_eval_batch_size=config.batch_size * 2,
-        learning_rate=config.learning_rate,
-        weight_decay=config.weight_decay,
-        warmup_steps=config.warmup_steps,
-        logging_dir=f"{config.output_dir}/logs",
+        output_dir=str(output_dir),
+        num_train_epochs=training_config.num_epochs,
+        per_device_train_batch_size=training_config.batch_size,
+        per_device_eval_batch_size=training_config.batch_size * 2,
+        learning_rate=training_config.learning_rate,
+        weight_decay=training_config.weight_decay,
+        warmup_steps=training_config.warmup_steps,
+        logging_dir=str(output_dir / "logs"),
         logging_steps=20,
         eval_strategy="epoch",
         save_strategy="epoch",
@@ -204,7 +259,7 @@ def train_model(config: TrainingConfig):
         report_to="none",
         fp16=False,
         dataloader_num_workers=0,
-        gradient_accumulation_steps=config.gradient_accumulation_steps,
+        gradient_accumulation_steps=training_config.gradient_accumulation_steps,
         disable_tqdm=False,
         use_cpu=False,
     )
@@ -228,9 +283,9 @@ def train_model(config: TrainingConfig):
     logger.info(f"Validation results: {eval_results}")
 
     # Save the final model
-    logger.info(f"Saving model to {config.output_dir}")
-    trainer.save_model(config.output_dir)
-    tokenizer.save_pretrained(config.output_dir)
+    logger.info(f"Saving model to {output_dir}")
+    trainer.save_model(str(output_dir))
+    tokenizer.save_pretrained(str(output_dir))
 
     logger.info("Training completed successfully!")
 
@@ -239,21 +294,33 @@ def train_model(config: TrainingConfig):
 
 def main():
     """Main training function."""
-    config = TrainingConfig()
+    try:
+        config = get_config()
 
-    # Create output directory
-    Path(config.output_dir).mkdir(parents=True, exist_ok=True)
+        # Ensure directories exist
+        config.paths.ensure_directories()
 
-    # Train the model
-    trainer, results = train_model(config)
+        # Train the model
+        trainer, results = train_model()
 
-    print("\n" + "=" * 60)
-    print("Training Summary")
-    print("=" * 60)
-    print(f"Model saved to: {config.output_dir}")
-    print(f"Final validation accuracy: {results['eval_accuracy']:.4f}")
-    print("=" * 60)
+        # Print summary
+        print("\n" + "=" * 60)
+        print("Training Summary")
+        print("=" * 60)
+        print(f"Model saved to: {config.paths.departure_arrival_model}")
+        print(f"Final validation accuracy: {results['eval_accuracy']:.4f}")
+        print("=" * 60)
+
+        return 0
+
+    except KeyboardInterrupt:
+        logger.warning("Training interrupted by user")
+        return 130
+
+    except Exception as e:
+        logger.error(f"Training failed: {e}", exc_info=True)
+        return 1
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

@@ -1,0 +1,44 @@
+site_name: Trip Extraction
+site_description: Documentation du système d'extraction de trajets
+site_author: Nachi
+repo_url: "https://github.com/Natchii59/trip-extraction"
+
+theme:
+  name: shadcn
+  pygments_style:
+    light: github-light
+    dark: github-dark
+
+nav:
+  - Accueil: index.md
+  - Installation: installation.md
+  - Utilisation: usage.md
+  - Architecture: architecture.md
+  - API: api.md
+
+markdown_extensions:
+  - admonition
+  - tables
+  - fenced_code
+  - codehilite
+  - shadcn.extensions.codexec
+  - pymdownx.blocks.tab
+  - pymdownx.blocks.details
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: true
+            show_root_heading: true
+            show_bases: true
+            show_signature_annotations: true
+            heading_level: 2
+            members_order: source
+            docstring_style: google
+            show_if_no_docstring: false
+
+copyright: Copyright &copy; 2025 Natchi

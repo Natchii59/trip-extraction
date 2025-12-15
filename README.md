@@ -1,325 +1,730 @@
-# Trip Information Extraction (v0.2.1) 🚀
+# Trip Information Extraction 🚀
 
-[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Ruff](https://img.shields.io/badge/linter-ruff-blueviolet.svg)](https://github.com/astral-sh/ruff)
 
-Un système de traitement du langage naturel qui extrait les informations de voyage (villes de départ et d'arrivée) depuis des phrases en français, utilisant **deux modèles spécialisés** optimisés pour des performances maximales.
+> **Système de traitement du langage naturel (NLP) pour extraire automatiquement les villes de départ et d'arrivée depuis des phrases en français.**
 
-## 🎉 Nouveauté v0.2.1 - Modèle Amélioré !
+Utilise une architecture à deux modèles ML spécialisés :
+- **CamemBERT-NER** pour l'extraction d'entités nommées
+- **Classifieur custom fine-tuné** pour la classification départ/arrivée
 
-**Améliorations majeures** du modèle pour gérer les phrases complexes :
+---
 
-✨ **Dataset enrichi** : 80 exemples (dont 30 phrases complexes)  
-✨ **Augmentation de données x6** : 480 exemples d'entraînement  
-✨ **Tokens spéciaux optimisés** : `<LOC>` pour meilleure attention  
-✨ **Inférence intelligente** : Seuil de confiance & fallback amélioré  
-✨ **90-95% accuracy** : Même sur phrases complexes !
+## 📚 Table des Matières
 
-➡️ **Lisez [IMPROVEMENTS.md](IMPROVEMENTS.md)** pour tous les détails
+- [Vue d'ensemble](#-vue-densemble)
+- [Installation](#-installation)
+- [Utilisation](#-utilisation)
+- [Architecture](#-architecture)
+- [Développement](#-développement)
+- [Entraînement du modèle](#-entraînement-du-modèle)
+- [Documentation](#-documentation)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-## 🔥 Performances v0.2.1
+---
 
-✅ **Phrases simples** : 95-98% accuracy  
-✅ **Phrases complexes** : 85-92% accuracy (avant: 50-60% ❌)  
-✅ **Vitesse** : 0.2-0.5s par phrase  
-✅ **Support** : Questions, syntaxe inversée, contexte temporel, escales
+## 🎯 Vue d'ensemble
 
-## 🎯 Architecture
+### Problème résolu
 
-Le système utilise **deux modèles ML spécialisés** qui travaillent ensemble :
+Extraire automatiquement des informations structurées (départ/arrivée) depuis du texte non structuré en français :
 
-1. **CamemBERT-NER** : Extraction des locations (LOC)
-2. **Classifieur Custom** : Classification départ vs arrivée (fine-tuné sur votre domaine)
+```python
+Input:  "Je veux aller de Paris à Lyon demain"
+Output: ('Paris', 'Lyon')
 
-## ⚡ Quick Start
-
-### Première Installation
-```bash
-# Installation complète automatique
-./quickstart.sh  # Linux/Mac
-quickstart.bat   # Windows
+Input:  "Train depuis Marseille vers Nice"
+Output: ('Marseille', 'Nice')
 ```
 
-### Mise à Jour vers v0.2.1
-```bash
-# Ré-entraîner avec les améliorations
-./retrain.sh  # Linux/Mac
-retrain.bat   # Windows
-```
+### Performances
 
-**Durée** : 8-12 minutes (CPU), 2-3 minutes (GPU)
+| Métrique | Valeur |
+|----------|--------|
+| **Accuracy (phrases simples)** | 95-98% |
+| **Accuracy (phrases complexes)** | 85-92% |
+| **Vitesse d'inférence** | 0.2-0.5s/phrase |
+| **Support** | Questions, syntaxe inversée, contexte temporel |
 
-## 📋 Features
+### Cas d'usage supportés
 
-- **🇫🇷 NER Français** : CamemBERT pour l'extraction précise d'entités
-- **🤖 Classifieur Custom** : Modèle fine-tuné spécifique au domaine voyage
-- **⚡ Très Rapide** : Inférence en 0.2-0.5s par phrase
-- **🎯 Précis** : 90-95% d'accuracy attendu
-- **📊 Dataset Extensible** : Facile d'ajouter vos propres exemples
-- **🔧 Configurable** : Hyperparamètres ajustables
-- **📝 Type Hints** : Annotations complètes pour meilleur support IDE
+✅ Phrases simples : "De Paris à Lyon"  
+✅ Questions : "Comment aller à Marseille depuis Toulouse ?"  
+✅ Syntaxe inversée : "À Lille depuis Paris"  
+✅ Contexte temporel : "Demain je vais de Nice à Cannes"  
+✅ Formulations variées : "Train/Vol/Trajet de A vers B"
 
-## 📋 Prérequis
-
-- Python 3.10 ou supérieur
-- ~1GB d'espace disque (pour les poids des modèles)
-- Connexion internet (première utilisation uniquement)
+---
 
 ## 🚀 Installation
 
-### Option 1 : Quick Start (Recommandé)
+### Prérequis
+
+- **Python 3.11+** (testé sur 3.11 et 3.12)
+- **~1GB d'espace disque** (modèles HuggingFace)
+- **Connexion internet** (première utilisation uniquement)
+
+### Installation rapide
 
 ```bash
-# Linux/Mac
-./quickstart.sh
+# 1. Cloner le repository
+git clone <repo-url>
+cd bootstrap
 
-# Windows
-quickstart.bat
+# 2. Créer un environnement virtuel
+python -m venv .venv
+source .venv/bin/activate.fish  # fish shell
+# ou
+source .venv/bin/activate        # bash/zsh
+
+# 3. Installer les dépendances
+pip install -e .
+
+# 4. Entraîner le modèle (obligatoire la première fois)
+trip-train
+
+# 5. Tester l'installation
+trip-demo
 ```
 
-### Option 2 : Installation Manuelle
+### Installation pour le développement
 
 ```bash
-# 1. Installer les dépendances
-pip install -r requirements.txt
+# Installer avec les dépendances de développement
+pip install -e ".[dev]"
 
-# 2. Entraîner le modèle custom (OBLIGATOIRE)
-python train_model.py
-
-# 3. Tester le système
-python test_model.py
+# Tester l'installation
+trip-demo
 ```
 
-### Option 3 : Environnement Virtuel
-
-```bash
-# Créer et activer l'environnement virtuel
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# Installer et configurer
-pip install -r requirements.txt
-python train_model.py
-```
+---
 
 ## 💻 Utilisation
 
-### Ligne de Commande
+### Interface CLI interactive
 
 ```bash
-python main.py
-```
+# Lancer le demo interactif
+trip-demo
 
-Interface interactive pour tester le système :
-```
-✈️  Phrase > Train de Paris à Lyon
+# Exemple de session
+✈️  Phrase > Je vais de Paris à Lyon
 ➡️  Résultat: Paris → Lyon
+
+✈️  Phrase > quit
+👋 Au revoir!
 ```
 
-### En tant que Bibliothèque
+### Utilisation programmatique
+
+```python
+from trip import TripParser
+from trip.exceptions import TripExtractionError
+
+# Initialiser le parser
+parser = TripParser()
+
+# Extraire un trajet
+try:
+    departure, arrival = parser.parse_trip("Train de Paris à Lyon")
+    print(f"Départ: {departure}, Arrivée: {arrival}")
+    # Output: Départ: Paris, Arrivée: Lyon
+except TripExtractionError as e:
+    print(f"Erreur: {e}")
+```
+
+### API avancée
+
+```python
+from trip.models import NERExtractor, DepartureArrivalClassifier
+from trip.config import get_config
+
+# Configuration personnalisée
+config = get_config()
+config.model.confidence_threshold = 0.7
+
+# Utiliser les modèles séparément
+ner = NERExtractor()
+locations = ner.extract_locations("Je vais de Paris à Lyon")
+# Output: ['Paris', 'Lyon']
+
+classifier = DepartureArrivalClassifier()
+role, confidence = classifier.classify_location(
+    "Je vais de Paris à Lyon", 
+    "Paris"
+)
+# Output: ('departure', 0.98)
+```
+
+### Gestion d'erreurs
+
+```python
+from trip import TripParser
+from trip.exceptions import (
+    InvalidInputError,
+    InsufficientLocationsError,
+    ClassificationError,
+    ModelNotFoundError
+)
+
+parser = TripParser()
+
+try:
+    result = parser.parse_trip(user_input)
+except ModelNotFoundError:
+    print("Modèle non trouvé. Lancez: trip-train")
+except InvalidInputError as e:
+    print(f"Entrée invalide: {e}")
+except InsufficientLocationsError:
+    print("Pas assez de villes détectées")
+except ClassificationError:
+    print("Impossible de classifier les villes")
+```
+
+---
+
+## 🏗️ Architecture
+
+### Vue d'ensemble
+
+```
+┌─────────────┐
+│   Input     │  "Je vais de Paris à Lyon"
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────────────┐
+│   TripParser                │
+│  (Orchestrateur principal)  │
+└──────┬──────────────┬───────┘
+       │              │
+       ▼              ▼
+┌─────────────┐  ┌──────────────────────┐
+│NERExtractor │  │DepartureArrival      │
+│(CamemBERT)  │  │Classifier            │
+│             │  │(CamemBERT fine-tuné) │
+└──────┬──────┘  └──────────┬───────────┘
+       │                    │
+       │ ['Paris', 'Lyon']  │
+       └────────┬───────────┘
+                │
+                ▼
+         ('Paris', 'Lyon')
+```
+
+### Structure du projet
+
+```
+bootstrap/
+├── src/trip/                    # Package principal
+│   ├── __init__.py             # Exports publics
+│   ├── config.py               # Configuration centralisée
+│   ├── exceptions.py           # Exceptions métier
+│   ├── trip_parser.py          # Orchestrateur
+│   ├── utils.py                # Utilitaires
+│   └── models/                 # Modèles ML
+│       ├── __init__.py
+│       ├── base.py             # Classes de base
+│       ├── ner.py              # Extracteur NER
+│       └── classifier.py       # Classifieur
+│
+├── scripts/                     # Scripts exécutables
+│   ├── demo.py                 # Demo interactif
+│   └── train.py                # Entraînement
+│
+├── data/                        # Données
+│   └── training_dataset.json  # Dataset d'entraînement
+│
+├── models/                      # Modèles entraînés (généré)
+│   └── departure_arrival_classifier/
+│
+├── docs/                        # Documentation
+│   ├── ARCHITECTURE.md         # Architecture détaillée
+│   ├── MIGRATION.md            # Guide de migration
+│   └── CHANGELOG.md            # Historique des versions
+│
+├── pyproject.toml              # Configuration du projet
+└── README.md                   # Ce fichier
+```
+
+### Composants principaux
+
+#### 1. TripParser (`src/trip/trip_parser.py`)
+
+Orchestrateur principal qui coordonne les deux modèles.
+
+```python
+class TripParser:
+    def parse_trip(self, text: str) -> tuple[Optional[str], Optional[str]]:
+        # 1. Extraction NER
+        locations = self.ner_extractor.extract_locations(text)
+        
+        # 2. Classification
+        departure, arrival = self.classifier.classify_locations(text, locations)
+        
+        return (departure, arrival)
+```
+
+#### 2. NERExtractor (`src/trip/models/ner.py`)
+
+Utilise CamemBERT-NER pour extraire les entités de type LOC (locations).
+
+- Modèle pré-entraîné : `Jean-Baptiste/camembert-ner`
+- Supporte les locations composées ("New York")
+- Gère le split automatique des locations multiples
+
+#### 3. DepartureArrivalClassifier (`src/trip/models/classifier.py`)
+
+Classifieur fine-tuné sur des phrases de voyage françaises.
+
+- Modèle de base : `camembert-base`
+- Fine-tuné sur 480+ exemples
+- Utilise des tokens spéciaux `[LOC]` et `[/LOC]`
+- Seuil de confiance configurable
+
+#### 4. Configuration (`src/trip/config.py`)
+
+Configuration centralisée avec chemins absolus et paramètres.
+
+```python
+from trip.config import get_config
+
+config = get_config()
+print(config.paths.models_dir)           # Chemins
+print(config.model.confidence_threshold) # Paramètres
+```
+
+#### 5. Exceptions (`src/trip/exceptions.py`)
+
+Hiérarchie d'exceptions pour une gestion fine des erreurs.
+
+```
+TripExtractionError (base)
+├── ModelNotFoundError
+├── ModelLoadError
+├── InsufficientLocationsError
+├── InvalidInputError
+├── ClassificationError
+└── TokenizationError
+```
+
+---
+
+## 🛠️ Développement
+
+### Configuration de l'environnement de dev
+
+```bash
+# Installer avec les outils de dev
+pip install -e ".[dev]"
+
+# Les outils disponibles:
+# - black: formatteur de code
+# - ruff: linter
+# - mypy: vérificateur de types
+# - pytest: tests unitaires
+```
+
+### Formatage du code
+
+```bash
+# Formater tout le code
+black .
+
+# Vérifier sans modifier
+black --check .
+```
+
+### Linting
+
+```bash
+# Vérifier le code
+ruff check .
+
+# Corriger automatiquement
+ruff check --fix .
+```
+
+### Type checking
+
+```bash
+# Vérifier les types
+mypy src/
+```
+
+### Structure des imports
+
+```python
+# ✅ Bon - Imports depuis le package
+from trip import TripParser
+from trip.models import NERExtractor, DepartureArrivalClassifier
+from trip.config import get_config
+from trip.exceptions import TripExtractionError
+
+# ❌ Mauvais - Imports directs
+from trip.models.ner import NERExtractor  # Éviter
+```
+
+### Ajout de nouvelles fonctionnalités
+
+1. **Créer une branche**
+   ```bash
+   git checkout -b feature/ma-fonctionnalite
+   ```
+
+2. **Développer avec les bonnes pratiques**
+   - Ajouter des docstrings à toutes les fonctions publiques
+   - Inclure des type hints
+   - Gérer les erreurs avec des exceptions spécifiques
+   - Ajouter des tests unitaires (si disponibles)
+
+3. **Formater et vérifier**
+   ```bash
+   black .
+   ruff check --fix .
+   mypy src/
+   ```
+
+4. **Commit et push**
+   ```bash
+   git add .
+   git commit -m "feat: description de la fonctionnalité"
+   git push origin feature/ma-fonctionnalite
+   ```
+
+---
+
+## 🎓 Entraînement du modèle
+
+### Quick start
+
+```bash
+# Entraîner avec les paramètres par défaut
+trip-train
+```
+
+### Configuration de l'entraînement
+
+Modifier `src/trip/config.py` :
+
+```python
+@dataclass
+class TrainingConfig:
+    num_epochs: int = 10          # Nombre d'epochs
+    batch_size: int = 8           # Taille du batch
+    learning_rate: float = 5e-5   # Learning rate
+    max_length: int = 128         # Longueur max des séquences
+```
+
+### Format du dataset
+
+Le dataset est dans `data/training_dataset.json` :
+
+```json
+[
+    {
+        "text": "Je veux aller de [LOC] Paris [/LOC] à Lyon",
+        "label": 0
+    },
+    {
+        "text": "Je veux aller de Paris à [LOC] Lyon [/LOC]",
+        "label": 1
+    }
+]
+```
+
+- **Label 0** : départ
+- **Label 1** : arrivée
+- Les tokens `[LOC]` et `[/LOC]` marquent la ville à classifier
+
+### Ajouter des exemples
+
+1. Éditer `data/training_dataset.json`
+2. Ajouter vos paires d'exemples (2 par phrase)
+3. Réentraîner : `trip-train`
+
+```json
+[
+    {
+        "text": "Vol de [LOC] Toulouse [/LOC] à Bordeaux",
+        "label": 0
+    },
+    {
+        "text": "Vol de Toulouse à [LOC] Bordeaux [/LOC]",
+        "label": 1
+    }
+]
+```
+
+### Monitoring de l'entraînement
+
+```bash
+# Logs détaillés pendant l'entraînement
+2025-12-14 22:43:31 - scripts.train - INFO - Starting training...
+2025-12-14 22:43:31 - scripts.train - INFO - Train set: 384 examples
+2025-12-14 22:43:31 - scripts.train - INFO - Validation set: 96 examples
+...
+2025-12-14 22:45:12 - scripts.train - INFO - Final validation accuracy: 0.9583
+```
+
+### Résultats
+
+Le modèle entraîné est sauvegardé dans :
+```
+models/departure_arrival_classifier/
+├── config.json
+├── model.safetensors
+├── tokenizer_config.json
+├── special_tokens_map.json
+└── ...
+```
+
+---
+
+## 📖 Documentation
+
+### Documentation disponible
+
+Ce projet dispose d'une documentation complète sous plusieurs formats :
+
+#### 📄 Documentation statique
+
+- **README.md** (ce fichier) : Guide de démarrage rapide
+- **ARCHITECTURE.md** : Architecture détaillée du système
+- **MIGRATION.md** : Guide de migration entre versions
+- **CHANGELOG.md** : Historique des changements
+- **Docstrings** : Documentation inline dans le code source
+
+#### 🌐 Documentation interactive (MkDocs)
+
+Une documentation interactive complète est disponible avec MkDocs Material :
+
+```bash
+# 1. Installer les dépendances de documentation
+pip install -e ".[docs]"
+
+# 2. Lancer le serveur de documentation
+mkdocs serve
+
+# 3. Ouvrir dans le navigateur
+# http://127.0.0.1:8000
+```
+
+**Contenu de la documentation interactive :**
+
+- **Guide de démarrage**
+  - Installation détaillée avec toutes les options
+  - Exemples d'utilisation (CLI et programmatique)
+  
+- **Architecture**
+  - Vue d'ensemble du système avec diagrammes
+  - Documentation détaillée de chaque composant
+  
+- **API Reference**
+  - Documentation auto-générée depuis les docstrings
+  - Exemples de code pour chaque fonction
+  
+- **Développement**
+  - Guide de contribution
+  - Standards de code
+  - Bonnes pratiques
+  
+- **Entraînement**
+  - Guide complet d'entraînement du modèle
+  - Format du dataset
+  - Optimisation des hyperparamètres
+
+#### 📚 Builder la documentation
+
+```bash
+# Générer la documentation statique
+mkdocs build
+
+# La documentation sera dans le dossier site/
+# Vous pouvez ensuite la déployer sur GitHub Pages, Netlify, etc.
+```
+
+### Lire la documentation
+
+```bash
+# Architecture du projet
+cat ARCHITECTURE.md
+
+# Guide de migration
+cat MIGRATION.md
+
+# Changelog
+cat CHANGELOG.md
+```
+
+### Documentation du code
+
+Toutes les fonctions publiques ont des docstrings complètes :
 
 ```python
 from trip import TripParser
 
-# Initialiser le parser (charge automatiquement les 2 modèles)
-parser = TripParser()
+# Voir la documentation
+help(TripParser)
+help(TripParser.parse_trip)
 
-# Extraire les informations de voyage
-departure, arrival = parser.parse_trip("Je veux aller à Lille depuis Paris")
-print(f"{departure} → {arrival}")  # Paris → Lille
+# Dans IPython/Jupyter
+TripParser.parse_trip?
 ```
 
-### Exemples de Phrases Supportées
+### Générer la documentation (optionnel)
 
-```python
-parser.parse_trip("Train de Paris à Lyon")
-# → ('Paris', 'Lyon')
-
-parser.parse_trip("Je pars de Marseille pour Nice")
-# → ('Marseille', 'Nice')
-
-parser.parse_trip("Vol depuis Toulouse jusqu'à Bordeaux")
-# → ('Toulouse', 'Bordeaux')
-
-parser.parse_trip("Trajet Nantes Rennes")
-# → ('Nantes', 'Rennes')
-```
-
-### Usage Avancé
-
-```python
-from trip import NERExtractor, TripParser, DepartureArrivalClassifier
-
-# Utiliser un modèle NER custom
-ner = NERExtractor(model_name="votre-modele-custom")
-
-# Utiliser un classifieur avec un chemin personnalisé
-classifier = DepartureArrivalClassifier(
-    model_path="./models/mon_modele"
-)
-
-# Créer le parser avec composants custom
-parser = TripParser(ner_extractor=ner, classifier=classifier)
-
-# Extraire toutes les entités
-entities = ner.extract_entities("Jean va de Paris à Lyon")
-for entity in entities:
-    print(f"{entity['word']} ({entity['entity_group']}): {entity['score']:.2f}")
-
-# Extraire uniquement les locations
-locations = ner.extract_locations("Train de Marseille à Bordeaux")
-print(locations)  # ['Marseille', 'Bordeaux']
-```
-
-## 📁 Structure du Projet
-
-```
-bootstrap/
-├── data/
-│   └── training_dataset.json          # Dataset d'entraînement
-├── models/
-│   └── departure_arrival_classifier/  # Modèle custom (après train)
-├── src/
-│   └── trip/
-│       ├── __init__.py                    # Package initialization
-│       ├── __main__.py                    # CLI entry point
-│       ├── ner_extractor.py               # Extraction NER (LOC)
-│       ├── departure_arrival_classifier.py # Classifieur custom
-│       ├── trip_parser.py                 # Orchestration
-│       └── utils.py                       # Fonctions utilitaires
-├── train_model.py               # Script d'entraînement
-├── test_model.py                # Script de tests
-├── main.py                      # Démo interactive
-├── quickstart.sh/.bat           # Installation automatique
-├── requirements.txt             # Dépendances
-├── MIGRATION_GUIDE.md           # Guide complet d'utilisation
-├── SUMMARY.md                   # Résumé des changements
-└── README.md                    # Ce fichier
-```
-
-## 🎓 Entraînement du Modèle
-
-### Dataset
-
-Le fichier `data/training_dataset.json` contient 50 exemples annotés. Format :
-
-```json
-{
-    "text": "Train de Paris à Lyon",
-    "departure": "Paris",
-    "arrival": "Lyon"
-}
-```
-
-### Ajouter des Exemples
-
-Pour améliorer les performances, ajoutez vos propres exemples au dataset :
+Si vous souhaitez une documentation HTML interactive :
 
 ```bash
-# 1. Éditer data/training_dataset.json
-# 2. Ajouter vos exemples au format ci-dessus
-# 3. Ré-entraîner
-python train_model.py
+# Installer mkdocs
+pip install mkdocs mkdocs-material
+
+# Servir la documentation localement
+mkdocs serve
+
+# Ouvrir http://127.0.0.1:8000
 ```
 
-**Recommandations** :
-- **Minimum** : 50 exemples (fourni)
-- **Recommandé** : 100-200 exemples
-- **Optimal** : 500+ exemples
+---
 
-### Hyperparamètres
+## 🧪 Vérification de l'installation
 
-Modifiables dans `train_model.py` → classe `TrainingConfig` :
-
-```python
-num_epochs: int = 10          # Nombre d'époques
-batch_size: int = 8           # Taille de batch
-learning_rate: float = 2e-5   # Taux d'apprentissage
-```
-
-## 📊 Performances
-
-| Métrique | Valeur |
-|----------|--------|
-| **Vitesse d'inférence** | 0.2-0.5s par phrase |
-| **Accuracy attendue** | 90-95% |
-| **Taille du modèle** | ~440 MB |
-| **Temps d'entraînement** | 5-10 min (CPU), 1-2 min (GPU) |
-
-## 📚 Documentation
-
-- **[MIGRATION_GUIDE.md](MIGRATION_GUIDE.md)** : Guide complet d'utilisation et configuration
-- **[SUMMARY.md](SUMMARY.md)** : Résumé des changements architecturaux
-
-## 🔧 Dépannage
-
-### Erreur "Model not found"
 ```bash
-# Entraîner d'abord le modèle
-python train_model.py
+# Tester avec le demo interactif
+trip-demo
 ```
 
-### Performances insuffisantes
-```bash
-# Ajouter plus d'exemples au dataset
-# Puis ré-entraîner
-python train_model.py
-```
+Si le demo fonctionne correctement, l'installation est complète !
 
-### Erreur mémoire (CUDA)
-```python
-# Dans train_model.py, réduire le batch_size
-batch_size: int = 4  # Au lieu de 8
-# => ('Paris', 'Lille')
-
-# Example 2: Different phrasings
-examples = [
-    "Je veux prendre le train de Montpellier à Paris",
-    "Train Paris → Strasbourg",
-    "Je pars demain de Lyon pour Marseille",
-    "Vol Paris Marseille demain",
-]
-
-for text in examples:
-    departure, arrival = parser.parse_trip(text)
-    print(f"{text} => {departure} → {arrival}")
-```
+---
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Pour les développeurs
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+1. **Forker le repository**
+2. **Créer une branche feature**
+   ```bash
+   git checkout -b feature/amazing-feature
+   ```
+3. **Développer en suivant les standards**
+   - Type hints partout
+   - Docstrings pour les fonctions publiques
+   - Gestion d'erreurs avec exceptions spécifiques
+   - Code formaté avec `black`
+   - Code vérifié avec `ruff`
 
-## 📄 License
+4. **Commit avec conventional commits**
+   ```bash
+   git commit -m "feat: add new feature"
+   git commit -m "fix: resolve bug"
+   git commit -m "docs: update README"
+   ```
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+5. **Push et créer une Pull Request**
 
-## 🙏 Acknowledgments
+### Standards de code
 
-- [CamemBERT](https://camembert-model.fr/) for the French NER model
-- [Hugging Face Transformers](https://huggingface.co/transformers/) for the NLP toolkit
-- [Jean-Baptiste/camembert-ner](https://huggingface.co/Jean-Baptiste/camembert-ner) for the pre-trained model
+- **Formatage** : Black (line-length=100)
+- **Linting** : Ruff
+- **Type checking** : MyPy strict
+- **Documentation** : Docstrings Google style
+- **Commits** : Conventional commits
 
-## 📧 Contact
+---
 
-For questions or feedback, please open an issue on GitHub.
+## 🐛 Troubleshooting
 
-## 🐛 Known Issues
+### Le modèle n'est pas trouvé
 
-- First run requires internet connection to download model (~250MB)
-- Model loading can take 10-30 seconds depending on hardware
-- Best results with clear, well-structured French sentences
+```
+ModelNotFoundError: Model not found at 'models/departure_arrival_classifier'
+```
 
-## 🗺️ Roadmap
+**Solution** : Entraîner le modèle
+```bash
+trip-train
+```
 
-- [ ] Add support for more complex trip patterns
-- [ ] Implement caching for faster model loading
-- [ ] Add REST API interface
-- [ ] Support for additional languages
-- [ ] Fine-tune model on trip-specific data
-- [ ] Add confidence scores to results
+### Erreur d'import
+
+```
+ModuleNotFoundError: No module named 'trip'
+```
+
+**Solution** : Installer le package
+```bash
+pip install -e .
+```
+
+### Performance faible
+
+Si l'accuracy est faible sur vos phrases :
+
+1. Ajouter des exemples similaires dans `data/training_dataset.json`
+2. Réentraîner : `trip-train`
+3. Ajuster le seuil de confiance dans `config.py`
+
+### Problème de device (CUDA/CPU)
+
+Le code détecte automatiquement CUDA. Pour forcer CPU :
+
+```python
+from trip.config import get_config
+
+config = get_config()
+config.model.device = "cpu"
+```
+
+---
+
+## 📊 Performances et benchmarks
+
+### Temps d'exécution
+
+| Opération | CPU | GPU (CUDA) |
+|-----------|-----|------------|
+| Chargement des modèles | ~2-3s | ~1-2s |
+| Inférence (1 phrase) | ~0.3-0.5s | ~0.1-0.2s |
+| Entraînement (10 epochs) | ~10-12min | ~2-3min |
+
+### Utilisation mémoire
+
+- **RAM** : ~500MB (modèles chargés)
+- **VRAM** (GPU) : ~1GB
+- **Disque** : ~1GB (modèles)
+
+---
+
+## 📝 License
+
+MIT License - voir le fichier LICENSE pour les détails.
+
+---
+
+## 🙏 Remerciements
+
+- **Hugging Face** pour CamemBERT et Transformers
+- **Jean-Baptiste** pour le modèle CamemBERT-NER
+- La communauté Python pour les outils de dev (black, ruff, mypy)
+
+---
+
+## 📧 Contact & Support
+
+Pour toute question ou problème :
+
+1. **Issues** : Ouvrir une issue sur GitHub
+2. **Documentation** : Consulter ARCHITECTURE.md
+3. **Code** : Les docstrings dans le code source
+
+---
+
+**Version** : 0.3.0  
+**Dernière mise à jour** : Décembre 2025  
+**Python** : 3.11+

@@ -2,6 +2,7 @@
 name = "trip"
 version = "0.1.0"
 description = "NER-based trip extraction system using CamemBERT for French text"
+readme = "README.md"
 requires-python = ">=3.11"
 
 dependencies = [
@@ -23,23 +24,26 @@ dev = [
     "jupyter>=1.0.0",
     "jupyterlab>=4.0.0",
 ]
+docs = ["mkdocs>=1.5.0", "mkdocs-shadcn>=0.9.0", "mkdocstrings[python]>=0.24.0"]
 
 [project.scripts]
-trip = "trip.__main__:main"
+trip-demo = "scripts.demo:main"
+trip-train = "scripts.train:main"
 
 [build-system]
 requires = ["setuptools>=65.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src", "."]
+include = ["trip*", "scripts*"]
 
 [tool.setuptools.package-data]
 trip = ["py.typed"]
 
 [tool.black]
 line-length = 100
-target-version = ["py310", "py311", "py312"]
+target-version = ["py311"]
 include = '\.pyi?$'
 extend-exclude = '''
 /(

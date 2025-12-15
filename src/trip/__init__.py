@@ -7,10 +7,28 @@ A Natural Language Processing system that extracts travel information
 - Custom fine-tuned classifier for departure/arrival classification
 """
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
-from .ner_extractor import NERExtractor
+from .models import NERExtractor, DepartureArrivalClassifier
 from .trip_parser import TripParser
-from .departure_arrival_classifier import DepartureArrivalClassifier
+from .config import get_config, Config
+from .exceptions import (
+    TripExtractionError,
+    ModelNotFoundError,
+    InsufficientLocationsError,
+    InvalidInputError,
+    ClassificationError,
+)
 
-__all__ = ["NERExtractor", "TripParser", "DepartureArrivalClassifier"]
+__all__ = [
+    "NERExtractor",
+    "TripParser",
+    "DepartureArrivalClassifier",
+    "get_config",
+    "Config",
+    "TripExtractionError",
+    "ModelNotFoundError",
+    "InsufficientLocationsError",
+    "InvalidInputError",
+    "ClassificationError",
+]
