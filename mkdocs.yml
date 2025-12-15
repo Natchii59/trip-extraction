@@ -1,7 +1,9 @@
 site_name: Trip Extraction
 site_description: Documentation du système d'extraction de trajets
 site_author: Nachi
+site_url: "https://natchii59.github.io/trip-extraction/"
 repo_url: "https://github.com/Natchii59/trip-extraction"
+repo_name: trip-extraction
 
 theme:
   name: shadcn

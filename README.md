@@ -1,7 +1,7 @@
 # Trip Extraction 🚀
 
 [![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)](https://www.python.org/downloads/)
-[![Documentation](https://img.shields.io/badge/docs-mkdocs-blue.svg)](docs/)
+[![Docs](https://img.shields.io/badge/docs-online-success.svg)](https://natchii59.github.io/trip-extraction/)
 
 > Système NLP pour extraire automatiquement les villes de départ et d'arrivée depuis des phrases en français.
 
@@ -53,20 +53,23 @@ print(f"{departure} → {arrival}")  # Paris → Lyon
 
 ## 📚 Documentation complète
 
-Pour une documentation détaillée, consultez notre **[documentation interactive](http://127.0.0.1:8000/)** :
+📖 **Documentation en ligne :** [https://natchii59.github.io/trip-extraction/](https://natchii59.github.io/trip-extraction/)
+
+Ou consultez la documentation localement :
 
 ```bash
 # Installer et lancer la documentation
 pip install -e ".[docs]"
 mkdocs serve
+# Ouvrir http://127.0.0.1:8000/
 ```
 
 ### Pages disponibles
 
-- **[Installation](docs/installation.md)** - Guide complet avec troubleshooting
-- **[Utilisation](docs/usage.md)** - Exemples CLI, API, batch processing, cas d'usage
-- **[Architecture](docs/architecture.md)** - Vue d'ensemble technique, composants, pipeline
-- **[API Reference](docs/api.md)** - Documentation auto-générée avec mkdocstrings
+- **[Installation](https://natchii59.github.io/trip-extraction/installation/)** - Guide complet avec troubleshooting
+- **[Utilisation](https://natchii59.github.io/trip-extraction/usage/)** - Exemples CLI, API, batch processing, cas d'usage
+- **[Architecture](https://natchii59.github.io/trip-extraction/architecture/)** - Vue d'ensemble technique, composants, pipeline
+- **[API Reference](https://natchii59.github.io/trip-extraction/api/)** - Documentation auto-générée avec mkdocstrings
 
 ## 🛠️ Développement
 
