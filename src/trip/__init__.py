@@ -7,7 +7,7 @@ A Natural Language Processing system that extracts travel information
 - Custom fine-tuned classifier for departure/arrival classification
 """
 
-__version__ = "0.3.0"
+__version__ = "0.1.0"
 
 from .config import Config, get_config
 from .exceptions import (
