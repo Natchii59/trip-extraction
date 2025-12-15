@@ -6,14 +6,13 @@ from French text using specialized ML models.
 """
 
 import logging
-from typing import Optional
 
-from .models import NERExtractor, DepartureArrivalClassifier
 from .exceptions import (
-    InvalidInputError,
-    InsufficientLocationsError,
     ClassificationError,
+    InsufficientLocationsError,
+    InvalidInputError,
 )
+from .models import DepartureArrivalClassifier, NERExtractor
 
 logger = logging.getLogger(__name__)
 
@@ -31,8 +30,8 @@ class TripParser:
 
     def __init__(
         self,
-        ner_extractor: Optional[NERExtractor] = None,
-        classifier: Optional[DepartureArrivalClassifier] = None,
+        ner_extractor: NERExtractor | None = None,
+        classifier: DepartureArrivalClassifier | None = None,
     ):
         """
         Initialize the trip parser.
@@ -44,7 +43,7 @@ class TripParser:
         self.ner_extractor = ner_extractor or NERExtractor()
         self.classifier = classifier or DepartureArrivalClassifier()
 
-    def parse_trip(self, text: str) -> tuple[Optional[str], Optional[str]]:
+    def parse_trip(self, text: str) -> tuple[str | None, str | None]:
         """
         Parse trip information from text to extract departure and arrival cities.
 

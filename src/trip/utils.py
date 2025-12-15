@@ -7,13 +7,12 @@ and other helper functions.
 
 import logging
 from pathlib import Path
-from typing import Optional
 
 from .config import get_config
 
 
 def setup_logging(
-    level: Optional[int | str] = None, log_file: Optional[str | Path] = None, force: bool = True
+    level: int | str | None = None, log_file: str | Path | None = None, force: bool = True
 ):
     """
     Configure logging for the application.
@@ -46,7 +45,7 @@ def setup_logging(
     if log_file:
         log_path = Path(log_file)
         log_path.parent.mkdir(parents=True, exist_ok=True)
-        handlers.append(logging.FileHandler(log_path))
+        handlers.append(logging.FileHandler(log_path))  # type: ignore[arg-type]
 
     logging.basicConfig(
         level=level,
@@ -57,7 +56,7 @@ def setup_logging(
     )
 
 
-def format_trip_result(departure: Optional[str], arrival: Optional[str]) -> str:
+def format_trip_result(departure: str | None, arrival: str | None) -> str:
     """
     Format trip extraction result for display.
 

@@ -9,16 +9,16 @@ A Natural Language Processing system that extracts travel information
 
 __version__ = "0.3.0"
 
-from .models import NERExtractor, DepartureArrivalClassifier
-from .trip_parser import TripParser
-from .config import get_config, Config
+from .config import Config, get_config
 from .exceptions import (
-    TripExtractionError,
-    ModelNotFoundError,
+    ClassificationError,
     InsufficientLocationsError,
     InvalidInputError,
-    ClassificationError,
+    ModelNotFoundError,
+    TripExtractionError,
 )
+from .models import DepartureArrivalClassifier, NERExtractor
+from .trip_parser import TripParser
 
 __all__ = [
     "NERExtractor",

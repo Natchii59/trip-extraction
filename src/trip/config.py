@@ -5,10 +5,8 @@ This module provides centralized configuration management with absolute paths
 and environment-based settings.
 """
 
-import os
-from pathlib import Path
 from dataclasses import dataclass, field
-from typing import Optional
+from pathlib import Path
 
 
 @dataclass
@@ -63,7 +61,7 @@ class ModelConfig:
 
     # Inference settings
     confidence_threshold: float = 0.5
-    device: Optional[str] = None  # None = auto-detect (cuda if available, else cpu)
+    device: str | None = None  # None = auto-detect (cuda if available, else cpu)
 
 
 @dataclass
@@ -100,7 +98,7 @@ class LoggingConfig:
     log_to_file: bool = False
 
     @property
-    def log_file(self) -> Optional[Path]:
+    def log_file(self) -> Path | None:
         """Path to log file if logging to file is enabled."""
         if self.log_to_file:
             paths = Paths()

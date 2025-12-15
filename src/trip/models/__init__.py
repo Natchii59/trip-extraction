@@ -6,7 +6,7 @@ This package contains all ML model implementations:
 - Departure-Arrival classification
 """
 
-from .ner import NERExtractor
 from .classifier import DepartureArrivalClassifier
+from .ner import NERExtractor
 
 __all__ = ["NERExtractor", "DepartureArrivalClassifier"]

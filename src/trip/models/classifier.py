@@ -6,21 +6,21 @@ departure and arrival locations in French travel sentences.
 """
 
 import logging
-import torch
-from typing import Optional
 from pathlib import Path
+
+import torch
 from transformers import (
-    CamembertTokenizer,
     CamembertForSequenceClassification,
+    CamembertTokenizer,
 )
 
 from ..config import get_config
 from ..exceptions import (
-    ModelNotFoundError,
-    ModelLoadError,
+    ClassificationError,
     InsufficientLocationsError,
     InvalidInputError,
-    ClassificationError,
+    ModelLoadError,
+    ModelNotFoundError,
 )
 from .base import BaseModel
 
@@ -49,7 +49,7 @@ class DepartureArrivalClassifier(BaseModel):
         departure: 0.98
     """
 
-    def __init__(self, model_path: Optional[str | Path] = None):
+    def __init__(self, model_path: str | Path | None = None):
         """
         Initialize the classifier.
 
@@ -102,10 +102,10 @@ class DepartureArrivalClassifier(BaseModel):
             raise
         except Exception as e:
             logger.error(f"Failed to load classifier model: {e}")
-            raise ModelLoadError(str(self.model_path), e)
+            raise ModelLoadError(str(self.model_path), e) from e
 
     def classify_location(
-        self, text: str, location: str, confidence_threshold: Optional[float] = None
+        self, text: str, location: str, confidence_threshold: float | None = None
     ) -> tuple[str, float]:
         """
         Classify whether a location is a departure or arrival point.
@@ -181,8 +181,8 @@ class DepartureArrivalClassifier(BaseModel):
                 outputs = self._model(**inputs)
                 logits = outputs.logits
                 probabilities = torch.softmax(logits, dim=-1)
-                predicted_class = torch.argmax(probabilities, dim=-1).item()
-                confidence = probabilities[0, predicted_class].item()
+                predicted_class = int(torch.argmax(probabilities, dim=-1).item())
+                confidence = float(probabilities[0, predicted_class].item())
 
             # Map class to role
             role = "departure" if predicted_class == 0 else "arrival"
@@ -204,9 +204,7 @@ class DepartureArrivalClassifier(BaseModel):
             logger.error(f"Error classifying location '{location}': {e}")
             return ("unknown", 0.0)
 
-    def classify_locations(
-        self, text: str, locations: list[str]
-    ) -> tuple[Optional[str], Optional[str]]:
+    def classify_locations(self, text: str, locations: list[str]) -> tuple[str | None, str | None]:
         """
         Classify multiple locations and determine departure and arrival.
 

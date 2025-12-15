@@ -5,9 +5,9 @@ This module defines common interfaces and base functionality
 for all models in the system.
 """
 
-from abc import ABC, abstractmethod
-from typing import Protocol, Any
 import logging
+from abc import ABC, abstractmethod
+from typing import Any, Protocol
 
 logger = logging.getLogger(__name__)
 

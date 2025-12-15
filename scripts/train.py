@@ -11,27 +11,25 @@ travel sentences.
 import json
 import logging
 import sys
-import torch
 from pathlib import Path
-from typing import Dict
-from dataclasses import dataclass
+
+import numpy as np
+import torch
+from sklearn.model_selection import train_test_split
+from torch.utils.data import Dataset
+from transformers import (
+    CamembertForSequenceClassification,
+    CamembertTokenizer,
+    Trainer,
+    TrainingArguments,
+)
 
 # Add project root to path
 project_root = Path(__file__).parent.parent
 sys.path.insert(0, str(project_root))
 
-from transformers import (
-    CamembertTokenizer,
-    CamembertForSequenceClassification,
-    TrainingArguments,
-    Trainer,
-)
-from torch.utils.data import Dataset
-import numpy as np
-from sklearn.model_selection import train_test_split
-
-from src.trip.config import get_config
-from src.trip.exceptions import InvalidInputError
+from src.trip.config import get_config  # noqa: E402
+from src.trip.exceptions import InvalidInputError  # noqa: E402
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
@@ -79,7 +77,7 @@ class TripDataset(Dataset):
         """Get the number of examples in the dataset."""
         return len(self.texts)
 
-    def __getitem__(self, idx: int) -> Dict[str, torch.Tensor]:
+    def __getitem__(self, idx: int) -> dict[str, torch.Tensor]:
         """
         Get a single training example.
 
@@ -107,7 +105,7 @@ class TripDataset(Dataset):
         }
 
 
-def load_dataset(dataset_path: Path) -> list[Dict]:
+def load_dataset(dataset_path: Path) -> list[dict]:
     """
     Load the training dataset from JSON file.
 
@@ -126,14 +124,14 @@ def load_dataset(dataset_path: Path) -> list[Dict]:
             f"Dataset not found at {dataset_path}. " f"Please ensure the training data exists."
         )
 
-    with open(dataset_path, "r", encoding="utf-8") as f:
+    with open(dataset_path, encoding="utf-8") as f:
         data = json.load(f)
 
     logger.info(f"Loaded {len(data)} examples from {dataset_path}")
     return data
 
 
-def create_training_examples(data: list[Dict]) -> tuple[list[str], list[int]]:
+def create_training_examples(data: list[dict]) -> tuple[list[str], list[int]]:
     """
     Load training examples directly from the dataset.
 
@@ -160,7 +158,7 @@ def create_training_examples(data: list[Dict]) -> tuple[list[str], list[int]]:
     return texts, labels
 
 
-def compute_metrics(eval_pred) -> Dict[str, float]:
+def compute_metrics(eval_pred) -> dict[str, float]:
     """
     Compute accuracy for evaluation.
 
@@ -189,7 +187,7 @@ def train_model():
     config = get_config()
     training_config = config.training
 
-    logger.info(f"Configuration:")
+    logger.info("Configuration:")
     logger.info(f"  - Model: {config.model.classifier_base_model}")
     logger.info(f"  - Epochs: {training_config.num_epochs}")
     logger.info(f"  - Batch size: {training_config.batch_size}")

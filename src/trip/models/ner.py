@@ -6,15 +6,15 @@ optimized for extracting location entities from French text.
 """
 
 import logging
-from typing import Optional
+
 from transformers import (
     AutoModelForTokenClassification,
-    pipeline,
     CamembertTokenizer,
+    pipeline,
 )
 
 from ..config import get_config
-from ..exceptions import ModelLoadError, InvalidInputError
+from ..exceptions import InvalidInputError, ModelLoadError
 from .base import BaseModel
 
 logger = logging.getLogger(__name__)
@@ -40,7 +40,7 @@ class NERExtractor(BaseModel):
         ['Paris', 'Lyon']
     """
 
-    def __init__(self, model_name: Optional[str] = None):
+    def __init__(self, model_name: str | None = None):
         """
         Initialize the NER extractor with a pre-trained model.
 
@@ -87,9 +87,9 @@ class NERExtractor(BaseModel):
 
         except Exception as e:
             logger.error(f"Failed to load NER model: {e}")
-            raise ModelLoadError(self.model_name, e)
+            raise ModelLoadError(self.model_name, e) from e
 
-    def extract_entities(self, text: str) -> list[dict[str, any]]:
+    def extract_entities(self, text: str) -> list[dict[str, any]]:  # type: ignore[valid-type]
         """
         Extract all named entities from the given text.
 
@@ -113,7 +113,7 @@ class NERExtractor(BaseModel):
             raise InvalidInputError("text", text, "Input text cannot be empty")
 
         try:
-            entities = self._pipeline(text)
+            entities = self._pipeline(text)  # type: ignore[misc]
             logger.debug(f"Extracted {len(entities)} entities from text")
             return entities
 
@@ -177,7 +177,7 @@ class NERExtractor(BaseModel):
 
         for ent in entities:
             if ent["entity_group"] == "LOC":
-                location = ent["word"].strip()
+                location = str(ent["word"]).strip()
                 # Try to split compound locations (e.g., "Paris Marseille")
                 split_locations = self._split_compound_locations(location)
                 locations.extend(split_locations)

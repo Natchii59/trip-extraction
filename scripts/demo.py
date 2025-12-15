@@ -8,9 +8,10 @@ departure and arrival cities from French sentences.
 
 import logging
 import sys
+
 from trip import TripParser
-from trip.utils import setup_logging, format_trip_result
-from trip.exceptions import TripExtractionError, ModelNotFoundError
+from trip.exceptions import ModelNotFoundError, TripExtractionError
+from trip.utils import format_trip_result, setup_logging
 
 # Setup module logger
 logger = logging.getLogger(__name__)
