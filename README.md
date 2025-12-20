@@ -24,16 +24,28 @@ trip-train
 
 # Demo
 trip-demo
+
+# API REST
+trip-api
+# Ouvrir http://127.0.0.1:8000/docs
 ```
 
-## 💡 Exemple d'utilisation
+## 💡 Exemples d'utilisation
 
+### Python
 ```python
-from trip import TripParser
+from trip_parser import TripParser
 
 parser = TripParser()
 departure, arrival = parser.parse_trip("Je vais de Paris à Lyon")
 print(f"{departure} → {arrival}")  # Paris → Lyon
+```
+
+### API REST
+```bash
+curl -X POST http://127.0.0.1:8000/trip/parse \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Train de Paris à Lyon"}'
 ```
 
 ## ✨ Fonctionnalités
@@ -105,6 +117,33 @@ Label 0 = départ, Label 1 = arrivée
 
 ## 🏗️ Architecture
 
+### Structure du projet
+
+```
+src/
+├── trip/                    # Module principal de parsing
+│   ├── trip_parser.py       # Orchestrateur principal
+│   ├── config.py            # Configuration
+│   ├── exceptions.py        # Exceptions personnalisées
+│   ├── utils.py             # Utilitaires
+│   └── models/              # Modèles ML
+│       ├── base.py          # Classes de base
+│       ├── ner.py           # Extracteur NER (CamemBERT)
+│       └── classifier.py    # Classifieur départ/arrivée
+└── api/                     # API REST
+    ├── main.py              # Application FastAPI
+    ├── routers/             # Endpoints
+    ├── schemas/             # Validation Pydantic
+    └── services/            # Logique métier
+
+scripts/
+├── demo.py                  # Script de démonstration interactive
+├── train.py                 # Script d'entraînement
+└── run_api.py               # Lancement de l'API
+```
+
+### Pipeline de traitement
+
 ```
 Input → TripParser → NERExtractor (CamemBERT-NER) → Locations
                    → Classifier (CamemBERT fine-tuné) → Départ/Arrivée
@@ -116,18 +155,3 @@ Input → TripParser → NERExtractor (CamemBERT-NER) → Locations
 - `DepartureArrivalClassifier` : Classification départ/arrivée
 - `Config` : Configuration centralisée
 - `Exceptions` : Gestion d'erreurs typées
-
-## 🐛 Troubleshooting
-
-### Modèle non trouvé
-```bash
-trip-train
-```
-
-### Module 'trip' non trouvé
-```bash
-pip install -e .
-```
-
-### Plus de détails
-Consultez la section [Troubleshooting de la documentation](docs/installation.md#problemes-courants)

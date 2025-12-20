@@ -14,9 +14,11 @@ theme:
 nav:
   - Accueil: index.md
   - Installation: installation.md
-  - Utilisation: usage.md
+  - Guide d'utilisation: guide-usage.md
   - Architecture: architecture.md
-  - API: api.md
+  - Module Trip Parser: trip-parser.md
+  - API REST: api-rest.md
+  - Référence API (Code): api-reference.md
 
 markdown_extensions:
   - admonition

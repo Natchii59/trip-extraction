@@ -1,221 +1,150 @@
 # Trip Extraction
 
-Système d'extraction automatique de trajets à partir de phrases en français utilisant le NLP et les transformers.
+!!! info "Projet interne de parsing de trajets"
+    **Trip Extraction** est un système d'IA qui extrait automatiquement les villes de départ et d'arrivée à partir de texte en français. Ce projet interne fournit une API REST et un module Python réutilisable.
 
-## 🎯 Objectif du projet
+## 🎯 Objectif
 
-Trip Extraction est un système de traitement du langage naturel (NLP) conçu pour **extraire automatiquement les informations de voyage** (villes de départ et d'arrivée) depuis des phrases en français naturel. Le système combine deux modèles de deep learning pour obtenir une précision de 95%+ :
+Permettre l'extraction automatique d'informations de voyage structurées à partir de langage naturel en français.
 
-1. **CamemBERT-NER** : Détection des entités nommées (villes)
-2. **Classifier personnalisé** : Classification départ vs arrivée
+**Entrée** : `"Je veux prendre le train de Paris à Lyon"`  
+**Sortie** : `{"departure": "Paris", "arrival": "Lyon"}`
 
-## ✨ Fonctionnalités
+## ✨ Fonctionnalités clés
 
-### Extraction intelligente
-- **Reconnaissance d'entités nommées (NER)** : Détection automatique des villes avec CamemBERT
-- **Classification contextuelle** : Identification précise du rôle (départ/arrivée) de chaque ville
-- **Support multi-syntaxe** : Gère les questions, syntaxe inversée, contexte temporel
+- **Extraction intelligente** : Détecte les villes dans diverses formulations
+- **Classification contextuelle** : Identifie automatiquement départ vs arrivée
+- **API REST** : Exposition HTTP pour tous les langages de programmation
+- **Module Python** : Intégration directe dans le code Python
+- **Multi-syntaxe** : Gère questions, syntaxe inversée, contexte temporel
 
-### Interface complète
-- **CLI interactif** : Demo en ligne de commande avec retour visuel
-- **API Python** : Intégration simple dans vos projets
-- **Gestion d'erreurs** : Exceptions typées pour un debugging facile
+## 🚀 Démarrage rapide
 
-### Performance
-- **Haute précision** : 95%+ sur le dataset de test
-- **Rapide** : 0.1-0.5s par phrase selon le hardware
-- **Optimisé** : Support CPU et GPU (CUDA)
-
-## 🚀 Installation rapide
-
-/// tab | Fish Shell
+### Pour les développeurs qui rejoignent le projet
 
 ```bash
-# Cloner et installer
-git clone <repo-url>
-cd bootstrap
-python -m venv .venv
-source .venv/bin/activate.fish
-pip install -e .
+# 1. Installation
+git clone <repo-url> && cd bootstrap
+python -m venv .venv && source .venv/bin/activate.fish
+pip install -e . && trip-train
 
-# Entraîner le modèle (obligatoire première fois)
-trip-train
-
-# Lancer le demo
-trip-demo
+# 2. Lancer l'API
+trip-api
+# API accessible sur http://127.0.0.1:8000
+# Documentation Swagger sur http://127.0.0.1:8000/docs
 ```
 
-///
-
-/// tab | Bash/Zsh
-
+/// details | Tester l'API
 ```bash
-# Cloner et installer
-git clone <repo-url>
-cd bootstrap
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-
-# Entraîner le modèle (obligatoire première fois)
-trip-train
-
-# Lancer le demo
-trip-demo
+curl -X POST http://127.0.0.1:8000/trip/parse \
+  -H "Content-Type: application/json" \
+  -d '{"text": "Train de Paris à Lyon"}'
 ```
 
+**Réponse** :
+```json
+{
+  "departure": "Paris",
+  "arrival": "Lyon",
+  "success": true,
+  "message": null
+}
+```
 ///
 
-## 💡 Exemple d'utilisation
-
-/// codexec
-
-    :::python
-    from trip import TripParser
-    
-    # Initialiser le parser
-    parser = TripParser()
-    
-    # Extraire un trajet
-    departure, arrival = parser.parse_trip("Je vais de Paris à Lyon")
-    
-    print(f"Départ: {departure}")
-    print(f"Arrivée: {arrival}")
-
-///
-
-### Exemples de phrases supportées
-
-Le système gère une grande variété de formulations :
+### Pour utiliser le module Python directement
 
 ```python
-# Syntaxe simple
-"De Paris à Lyon" → Paris → Lyon
-"Paris Lyon" → Paris → Lyon
+from trip_parser import TripParser
 
-# Questions
-"Comment aller à Marseille depuis Toulouse ?" → Toulouse → Marseille
-"Où prendre le train pour Nice ?" → <ville actuelle> → Nice
-
-# Syntaxe inversée
-"À Lille depuis Paris" → Paris → Lille
-"Vers Lyon de Paris" → Paris → Lyon
-
-# Avec contexte temporel
-"Demain je vais de Nice à Cannes" → Nice → Cannes
-"Train de 8h de Paris à Lyon" → Paris → Lyon
+parser = TripParser()
+departure, arrival = parser.parse_trip("Je vais de Paris à Lyon")
+print(f"{departure} → {arrival}")  # Paris → Lyon
 ```
 
-## 📊 Performance
-
-| Composant | Métrique | Score |
-|-----------|----------|-------|
-| NER Extractor | Precision | 95% |
-| NER Extractor | Recall | 93% |
-| NER Extractor | F1-Score | 94% |
-| Classifier | Accuracy | 96% |
-| Classifier | Precision | 97% |
-| Classifier | F1-Score | 98% |
-
-### Temps d'exécution
-
-| Device | Temps par phrase |
-|--------|------------------|
-| **CPU** | 0.3-0.5s |
-| **GPU (CUDA)** | 0.1-0.2s |
-
-## 🏗️ Architecture
+## 🏗️ Architecture en bref
 
 ```
-Input: "Je vais de Paris à Lyon"
-    ↓
-┌─────────────────────┐
-│   NER Extractor     │  → Détecte: ["Paris", "Lyon"]
-│  (CamemBERT-NER)    │
-└─────────────────────┘
-    ↓
-┌─────────────────────┐
-│    Classifier       │  → Paris: departure (98%)
-│ (CamemBERT custom)  │  → Lyon: arrival (97%)
-└─────────────────────┘
-    ↓
-Output: (Paris, Lyon)
+┌─────────────┐
+│   Input     │ "Je vais de Paris à Lyon"
+└──────┬──────┘
+       │
+       ▼
+┌─────────────────────────┐
+│   TripParser            │ Orchestrateur principal
+│   (trip_parser.py)      │
+└──────┬──────────────────┘
+       │
+       ├──► ┌─────────────────────┐
+       │    │  NERExtractor       │ Extrait les villes
+       │    │  (CamemBERT-NER)    │ ["Paris", "Lyon"]
+       │    └─────────────────────┘
+       │
+       └──► ┌──────────────────────────┐
+            │  Classifier              │ Classifie départ/arrivée
+            │  (CamemBERT fine-tuné)   │ Paris=départ, Lyon=arrivée
+            └──────────────────────────┘
+                      │
+                      ▼
+            ┌─────────────────┐
+            │    Output       │ ("Paris", "Lyon")
+            └─────────────────┘
 ```
 
-**Composants principaux :**
-- **TripParser** : Orchestration et validation
-- **NERExtractor** : Extraction des villes avec CamemBERT-NER
-- **DepartureArrivalClassifier** : Classification avec CamemBERT fine-tuné
-- **Exceptions** : Gestion d'erreurs typées
+Le système utilise **deux modèles ML** en séquence :
 
-## 📚 Navigation
+1. **NERExtractor** : Détecte toutes les entités de type "ville" avec CamemBERT-NER
+2. **Classifier** : Détermine pour chaque ville si c'est un départ ou une arrivée
 
-/// details | Installation complète
+Cette approche modulaire offre :
+- Meilleure précision que des regex
+- Flexibilité (changement d'un modèle sans toucher l'autre)
+- Réutilisation de modèles pré-entraînés de qualité
 
-[Guide d'installation détaillé](installation.md) avec :
+## 🛠️ Technologies utilisées
 
-- Prérequis système
-- Installation standard et développement
-- Configuration GPU/CUDA
-- Troubleshooting
+| Composant | Technologie | Usage |
+|-----------|-------------|-------|
+| **API** | FastAPI + Uvicorn | Serveur HTTP REST |
+| **NER** | CamemBERT-NER | Extraction d'entités nommées |
+| **Classifier** | CamemBERT (fine-tuné) | Classification départ/arrivée |
+| **ML Framework** | Transformers + PyTorch | Inférence des modèles |
+| **Validation** | Pydantic | Validation de données API |
 
-///
+## 📊 Métriques de performance
 
-/// details | Guide d'utilisation
+- **Temps de chargement** : 2-5 secondes (chargement initial des modèles)
+- **Temps de réponse** : 100-500ms par requête (modèles chargés)
+- **Mémoire requise** : ~500 MB (modèles en mémoire)
+- **Précision** : 90-95% sur des phrases courantes
 
-[Exemples et API](usage.md) avec :
+## 📚 Documentation
 
-- Interface CLI
-- API Python avec exemples codexec
-- Batch processing
-- Configuration avancée
+### Pour démarrer
 
-///
+| Page | Description |
+|------|-------------|
+| **[Installation](installation.md)** | Guide d'installation complet avec prérequis et troubleshooting |
+| **[Guide d'utilisation](guide-usage.md)** | Exemples d'utilisation avec CLI, Python et API REST |
 
-/// details | Architecture technique
+### Documentation technique
 
-[Vue d'ensemble architecture](architecture.md) avec :
+| Page | Description |
+|------|-------------|
+| **[Architecture](architecture.md)** | Structure du projet, patterns et pipeline de traitement |
+| **[Module Trip Parser](trip-parser.md)** | Détails du module d'extraction ML (modèles, config, exceptions) |
+| **[API REST](api-rest.md)** | Documentation de l'API REST (endpoints, déploiement) |
+| **[Référence API](api-reference.md)** | Documentation auto-générée des classes et méthodes Python |
 
-- Description des composants
-- Pipeline de traitement
-- Format du dataset
-- Performance détaillée
+## 🔗 Liens rapides
 
-///
+**En développement** :
+- Swagger UI : http://127.0.0.1:8000/docs (quand l'API est lancée)
+- Code source : dossier `src/`
 
-/// details | Référence API
-
-[Documentation API complète](api.md) avec :
-
-- API auto-générée via mkdocstrings
-- Classes et méthodes documentées
-- Signatures de types
-- Exemples interactifs
-
-///
-
-## 🎓 Cas d'usage
-
-Trip Extraction peut être utilisé pour :
-
-- **Chatbots de voyage** : Extraction automatique de trajets depuis messages utilisateurs
-- **Systèmes de réservation** : Parsing de requêtes en langage naturel
-- **Analyse de données** : Extraction de trajets depuis corpus de textes
-- **Assistants virtuels** : Compréhension d'intentions de voyage
-- **Applications mobiles** : Interface vocale pour recherche de trajets
-
-## 🔧 Développement
-
-Pour contribuer au projet :
-
+**Commandes utiles** :
 ```bash
-# Installation avec outils de dev
-pip install -e ".[dev]"
-
-# Formattage et linting
-black src/ scripts/
-ruff check src/ scripts/
-mypy src/
+trip-api        # Lancer l'API REST
+trip-demo       # Interface CLI de test
+trip-train      # Entraîner le classifier
 ```
-
-Outils inclus : `black`, `ruff`, `mypy`, `pytest`, `jupyter`
