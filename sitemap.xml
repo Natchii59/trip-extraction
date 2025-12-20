@@ -2,22 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://natchii59.github.io/trip-extraction/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-20</lastmod>
     </url>
     <url>
-         <loc>https://natchii59.github.io/trip-extraction/api/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <loc>https://natchii59.github.io/trip-extraction/api-reference/</loc>
+         <lastmod>2025-12-20</lastmod>
+    </url>
+    <url>
+         <loc>https://natchii59.github.io/trip-extraction/api-rest/</loc>
+         <lastmod>2025-12-20</lastmod>
     </url>
     <url>
          <loc>https://natchii59.github.io/trip-extraction/architecture/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-20</lastmod>
+    </url>
+    <url>
+         <loc>https://natchii59.github.io/trip-extraction/guide-usage/</loc>
+         <lastmod>2025-12-20</lastmod>
     </url>
     <url>
          <loc>https://natchii59.github.io/trip-extraction/installation/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <lastmod>2025-12-20</lastmod>
     </url>
     <url>
-         <loc>https://natchii59.github.io/trip-extraction/usage/</loc>
-         <lastmod>2025-12-15</lastmod>
+         <loc>https://natchii59.github.io/trip-extraction/trip-parser/</loc>
+         <lastmod>2025-12-20</lastmod>
     </url>
 </urlset>
