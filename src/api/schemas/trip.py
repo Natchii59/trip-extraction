@@ -4,7 +4,6 @@ Pydantic models for trip parsing API.
 These models define the request/response schemas for trip extraction endpoints.
 """
 
-from typing import Optional
 
 from pydantic import BaseModel, Field, field_validator
 
@@ -39,12 +38,12 @@ class TripParseRequest(BaseModel):
 class TripParseResponse(BaseModel):
     """Response model for successful trip parsing."""
 
-    departure: Optional[str] = Field(
+    departure: str | None = Field(
         None,
         description="Departure city extracted from text",
         examples=["Paris"],
     )
-    arrival: Optional[str] = Field(
+    arrival: str | None = Field(
         None,
         description="Arrival city extracted from text",
         examples=["Lyon"],
@@ -53,7 +52,7 @@ class TripParseResponse(BaseModel):
         ...,
         description="Whether the parsing was successful",
     )
-    message: Optional[str] = Field(
+    message: str | None = Field(
         None,
         description="Additional information about the result",
     )

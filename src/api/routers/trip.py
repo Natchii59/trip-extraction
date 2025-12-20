@@ -10,7 +10,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from trip_parser.exceptions import InvalidInputError, ModelNotFoundError, TripExtractionError
 
-from ..schemas import ErrorResponse, TripParseRequest, TripParseResponse
+from ..schemas import TripParseRequest, TripParseResponse
 from ..services import TripParserService
 
 logger = logging.getLogger(__name__)
@@ -114,28 +114,28 @@ async def parse_trip(request: TripParseRequest) -> TripParseResponse:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=str(e),
-        )
+        ) from e
 
     except ModelNotFoundError as e:
         logger.error(f"Models not found: {e}")
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=str(e),
-        )
+        ) from e
 
     except TripExtractionError as e:
         logger.error(f"Trip extraction error: {e}")
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Failed to extract trip information: {str(e)}",
-        )
+        ) from e
 
     except Exception as e:
         logger.error(f"Unexpected error: {e}", exc_info=True)
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"An unexpected error occurred: {str(e)}",
-        )
+        ) from e
 
 
 @router.get(

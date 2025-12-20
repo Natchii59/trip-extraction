@@ -25,7 +25,7 @@ class TripParserService:
     """
 
     _instance: Optional["TripParserService"] = None
-    _parser: Optional[TripParser] = None
+    _parser: TripParser | None = None
     _initialized: bool = False
 
     def __new__(cls) -> "TripParserService":
@@ -60,7 +60,7 @@ class TripParserService:
                 raise
             except Exception as e:
                 logger.error(f"Unexpected error loading models: {e}", exc_info=True)
-                raise TripExtractionError(f"Failed to initialize parser: {str(e)}")
+                raise TripExtractionError(f"Failed to initialize parser: {str(e)}") from e
 
         return self._parser
 
@@ -113,7 +113,7 @@ class TripParserService:
         except Exception as e:
             # Log and wrap unexpected errors
             logger.error(f"Unexpected error in parse_trip: {e}", exc_info=True)
-            raise TripExtractionError(f"Unexpected error: {str(e)}")
+            raise TripExtractionError(f"Unexpected error: {str(e)}") from e
 
     def is_ready(self) -> bool:
         """
