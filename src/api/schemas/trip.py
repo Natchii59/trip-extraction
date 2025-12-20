@@ -4,7 +4,6 @@ Pydantic models for trip parsing API.
 These models define the request/response schemas for trip extraction endpoints.
 """
 
-
 from pydantic import BaseModel, Field, field_validator
 
 
