@@ -40,4 +40,4 @@ jobs:
 
     - name: Verify package installation
       run: |
-        python -c "import trip; print(f'Trip version: {trip.__version__}')"
+        python -c "import trip_parser; print(f'Trip Parser version: {trip_parser.__version__}')"
