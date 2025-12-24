@@ -1,0 +1,21 @@
+{
+  "name": "trip-parser-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "install:all": "nx run-many --target=install --all",
+    "dev": "nx run-many --target=serve --projects=api,web --parallel",
+    "build": "nx run-many --target=build --all",
+    "lint": "nx run-many --target=lint --all",
+    "format": "prettier --write \"**/*.{ts,tsx,js,json,md}\""
+  },
+  "devDependencies": {
+    "@nx/js": "^17.2.8",
+    "@trivago/prettier-plugin-sort-imports": "^6.0.0",
+    "nx": "^17.2.8",
+    "prettier": "^3.7.4"
+  }
+}

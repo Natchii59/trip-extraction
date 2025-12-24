@@ -1,0 +1,45 @@
+{
+  "name": "api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/api/src",
+  "projectType": "application",
+  "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pip install -e .",
+        "cwd": "apps/api"
+      },
+      "dependsOn": ["trip-parser:install"]
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uvicorn src.api.main:app --reload --host 0.0.0.0 --port 8000",
+        "cwd": "apps/api"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "python -m build",
+        "cwd": "apps/api"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ruff check .",
+        "cwd": "apps/api"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "black .",
+        "cwd": "apps/api"
+      }
+    }
+  },
+  "tags": ["type:backend", "language:python"]
+}

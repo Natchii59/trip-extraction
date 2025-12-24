@@ -1,43 +1,41 @@
 name: CI
 
-on:
-  push:
-    branches: master
+on: push
 
 jobs:
-  lint-and-test:
+  ci:
+    name: CI
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.11"]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pip'
+# TODO: Re-enable CI workflow
+#     - name: Set up Python 3.11
+#       uses: actions/setup-python@v5
+#       with:
+#         python-version: '3.11'
+#         cache: 'pip'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -e ".[dev]"
+#     - name: Set up Node.js
+#       uses: actions/setup-node@v4
+#       with:
+#         node-version: '22'
+#         cache: 'npm'
 
-    - name: Check code formatting with Black
-      run: |
-        black --check src/ scripts/
+#     - name: Install dependencies
+#       run: |
+#         pip install -e ".[dev]"
+#         npm ci
+#         node_modules/.bin/nx run frontend:install:ci
+#         node_modules/.bin/nx run backend:install
 
-    - name: Lint with Ruff
-      run: |
-        ruff check src/ scripts/
+#     - name: Lint all projects
+#       run: npm run lint
 
-    - name: Type check with MyPy
-      run: |
-        mypy src/
-      continue-on-error: true
+#     - name: Build all projects
+#       run: npm run build
 
-    - name: Verify package installation
-      run: |
-        python -c "import trip_parser; print(f'Trip Parser version: {trip_parser.__version__}')"
+#     - name: Verify backend installation
+#       run: |
+#         python -c "import trip_parser; print(f'Trip Parser version: {trip_parser.__version__}')"

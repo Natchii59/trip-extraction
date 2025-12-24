@@ -1,0 +1,21 @@
+# ML Training - Runs & Experiments
+runs/
+wandb/
+mlruns/
+outputs/
+
+# ML Models
+/models/
+*.ckpt
+*.bin
+*.pt
+*.pth
+*.pkl
+*.pickle
+*.safetensors
+
+# HuggingFace/Transformers cache
+transformers_cache/
+torch_cache/
+huggingface/
+.huggingface/

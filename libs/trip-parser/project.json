@@ -1,0 +1,30 @@
+{
+  "name": "trip-parser",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/trip-parser/src",
+  "targets": {
+    "install": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pip install -e .",
+        "cwd": "libs/trip-parser"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ruff check .",
+        "cwd": "libs/trip-parser"
+      }
+    },
+    "format": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "black .",
+        "cwd": "libs/trip-parser"
+      }
+    }
+  },
+  "tags": ["type:lib", "lang:python"]
+}

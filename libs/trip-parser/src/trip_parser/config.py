@@ -7,14 +7,27 @@ and environment-based settings.
 
 from dataclasses import dataclass, field
 from pathlib import Path
+import os
+
+
+def _get_project_root() -> Path:
+    """
+    Get the trip-parser library root directory.
+
+    Uses __file__ location to find the library root.
+    __file__ is at: libs/trip-parser/src/trip_parser/config.py
+    So we go up 3 levels to get to: libs/trip-parser/
+
+    Works reliably in editable mode.
+    """
+    return Path(__file__).resolve().parent.parent.parent
 
 
 @dataclass
 class Paths:
     """Centralized path configuration using absolute paths."""
 
-    # Project root is 3 levels up from this file: src/trip/config.py
-    PROJECT_ROOT: Path = field(default_factory=lambda: Path(__file__).parent.parent.parent)
+    PROJECT_ROOT: Path = field(default_factory=_get_project_root)
 
     @property
     def models_dir(self) -> Path:
@@ -24,7 +37,7 @@ class Paths:
     @property
     def data_dir(self) -> Path:
         """Directory containing datasets."""
-        return self.PROJECT_ROOT / "data"
+        return self.PROJECT_ROOT / "datasets"
 
     @property
     def logs_dir(self) -> Path:

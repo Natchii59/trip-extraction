@@ -24,12 +24,8 @@ from transformers import (
     TrainingArguments,
 )
 
-# Add project root to path
-project_root = Path(__file__).parent.parent
-sys.path.insert(0, str(project_root))
-
-from src.trip.config import get_config  # noqa: E402
-from src.trip.exceptions import InvalidInputError  # noqa: E402
+from trip_parser.config import get_config
+from trip_parser.exceptions import InvalidInputError
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
