@@ -1,5 +1,8 @@
 import { useState } from 'react'
 
+import { Button } from './components/ui/button'
+import { Input } from './components/ui/input'
+
 function App() {
   const [text, setText] = useState<string>('')
   const [response, setResponse] = useState(null)
@@ -21,9 +24,11 @@ function App() {
   }
 
   return (
-    <>
-      <input type='text' value={text} onChange={e => setText(e.target.value)} />
-      <button onClick={onSubmit}>Submit</button>
+    <div className='mx-auto flex h-dvh w-full max-w-lg flex-col items-center justify-center gap-y-4'>
+      <h1 className='text-4xl font-bold'>Trip Parser</h1>
+
+      <Input type='text' value={text} onChange={e => setText(e.target.value)} />
+      <Button onClick={onSubmit}>Submit</Button>
 
       {response && (
         <div>
@@ -31,7 +36,7 @@ function App() {
           <pre>{JSON.stringify(response, null, 2)}</pre>
         </div>
       )}
-    </>
+    </div>
   )
 }
 

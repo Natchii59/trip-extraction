@@ -4,5 +4,8 @@
   "python.analysis.extraPaths": ["${workspaceFolder}/apps/backend/src"],
   "python.autoComplete.extraPaths": ["${workspaceFolder}/apps/backend/src"],
   "python-envs.defaultEnvManager": "ms-python.python:venv",
-  "python-envs.pythonProjects": []
+  "python-envs.pythonProjects": [],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }
