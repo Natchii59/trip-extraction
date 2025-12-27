@@ -33,13 +33,6 @@
       },
       "outputs": ["{workspaceRoot}/apps/web/dist"]
     },
-    "preview": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "vite preview",
-        "cwd": "apps/web"
-      }
-    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {

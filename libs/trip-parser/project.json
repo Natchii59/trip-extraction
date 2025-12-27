@@ -10,20 +10,6 @@
         "command": "pip install -e .",
         "cwd": "libs/trip-parser"
       }
-    },
-    "lint": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "ruff check .",
-        "cwd": "libs/trip-parser"
-      }
-    },
-    "format": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "black .",
-        "cwd": "libs/trip-parser"
-      }
     }
   },
   "tags": ["type:lib", "lang:python"]

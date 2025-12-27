@@ -23,7 +23,6 @@ from transformers import (
     Trainer,
     TrainingArguments,
 )
-
 from trip_parser.config import get_config
 from trip_parser.exceptions import InvalidInputError
 

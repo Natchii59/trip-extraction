@@ -7,7 +7,6 @@ and environment-based settings.
 
 from dataclasses import dataclass, field
 from pathlib import Path
-import os
 
 
 def _get_project_root() -> Path:

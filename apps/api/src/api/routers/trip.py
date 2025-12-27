@@ -7,7 +7,6 @@ This module defines the REST endpoints for trip extraction.
 import logging
 
 from fastapi import APIRouter, HTTPException, status
-
 from trip_parser.exceptions import InvalidInputError, ModelNotFoundError, TripExtractionError
 
 from ..schemas import TripParseRequest, TripParseResponse
